@@ -391,9 +391,14 @@ function AppWalkthrough() {
 
 function TiltCard({ children, className }) {
   const cardRef = useRef(null);
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
+
+  useEffect(() => {
+    setIsTouchDevice('ontouchstart' in window || navigator.maxTouchPoints > 0);
+  }, []);
 
   const handleMouseMove = (e) => {
-    if (!cardRef.current) return;
+    if (!cardRef.current || isTouchDevice) return;
     const rect = cardRef.current.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
@@ -414,7 +419,7 @@ function TiltCard({ children, className }) {
   };
 
   const handleMouseLeave = () => {
-    if (!cardRef.current) return;
+    if (!cardRef.current || isTouchDevice) return;
     gsap.to(cardRef.current, {
       rotateX: 0,
       rotateY: 0,
@@ -430,7 +435,7 @@ function TiltCard({ children, className }) {
       className={className}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      style={{ transformStyle: 'preserve-3d', willChange: 'transform' }}
+      style={{ transformStyle: 'preserve-3d', willChange: isTouchDevice ? 'auto' : 'transform' }}
     >
       {children}
     </div>

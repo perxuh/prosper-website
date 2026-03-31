@@ -20,6 +20,7 @@ import { motion, useScroll, useTransform, useInView, useSpring } from "framer-mo
 
 export default function AboutUsSection() {
   const [isVisible, setIsVisible] = useState(false)
+  const [isTouchDevice, setIsTouchDevice] = useState(false)
   const sectionRef = useRef(null)
   const statsRef = useRef(null)
   const isInView = useInView(sectionRef, { once: false, amount: 0.01 })
@@ -37,6 +38,7 @@ export default function AboutUsSection() {
   const rotate2 = useTransform(scrollYProgress, [0, 1], [0, -20])
 
   useEffect(() => {
+    setIsTouchDevice('ontouchstart' in window || navigator.maxTouchPoints > 0)
     setIsVisible(true)
   }, [])
 
@@ -121,11 +123,11 @@ export default function AboutUsSection() {
       {/* Decorative background elements */}
       <motion.div
         className="absolute top-20 left-10 w-64 h-64 rounded-full bg-[#46C7D9]/10 blur-3xl pointer-events-none"
-        style={{ y: y1, rotate: rotate1 }}
+        style={!isTouchDevice ? { y: y1, rotate: rotate1, willChange: 'transform' } : {}}
       />
       <motion.div
         className="absolute bottom-20 right-10 w-80 h-80 rounded-full bg-[#9F83F1]/10 blur-[100px] pointer-events-none"
-        style={{ y: y2, rotate: rotate2 }}
+        style={!isTouchDevice ? { y: y2, rotate: rotate2, willChange: 'transform' } : {}}
       />
       <motion.div
         className="absolute top-1/2 left-1/4 w-3 h-3 rounded-full bg-[#46C7D9]/40 shadow-[0_0_10px_#46C7D9] pointer-events-none"

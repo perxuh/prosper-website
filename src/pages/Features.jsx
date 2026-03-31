@@ -118,7 +118,7 @@ export default function Features() {
         {features.map((feat, index) => (
           <div key={index} id={feat.id} className={`feature-row scroll-mt-32 flex flex-col ${index % 2 === 1 ? 'md:flex-row-reverse' : 'md:flex-row'} items-center gap-12 md:gap-24 relative`}>
             
-            <div className="w-full md:w-1/2 space-y-6 relative z-10">
+            <div className="w-full md:w-1/2 space-y-6 relative z-10 transform-gpu" style={{ willChange: "transform, opacity" }}>
               <div className="mb-8 p-4 bg-white/5 inline-block rounded-2xl border border-white/10 shadow-lg backdrop-blur-md">
                 {feat.icon}
               </div>
@@ -139,7 +139,7 @@ export default function Features() {
               </ul>
             </div>
 
-            <div className="w-full md:w-1/2 perspective-[1500px]">
+            <div className="w-full md:w-1/2 perspective-[1500px] transform-gpu" style={{ willChange: "transform, opacity" }}>
               <div className="relative rounded-[2rem] border border-white/10 bg-[#1A1B23]/50 backdrop-blur-xl p-4 shadow-2xl overflow-hidden transform-gpu hover:rotate-y-[5deg] hover:rotate-x-[5deg] transition-transform duration-700">
                 <div className={`absolute top-0 right-0 w-32 h-32 bg-${feat.color}/20 blur-[50px]`}></div>
                 <img 

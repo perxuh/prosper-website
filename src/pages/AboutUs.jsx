@@ -84,9 +84,14 @@ const advisors = [
 
 function TiltAdvisorCard({ advisor }) {
   const cardRef = useRef(null);
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
+
+  useEffect(() => {
+    setIsTouchDevice('ontouchstart' in window || navigator.maxTouchPoints > 0);
+  }, []);
 
   const handleMouseMove = (e) => {
-    if (!cardRef.current) return;
+    if (!cardRef.current || isTouchDevice) return;
     const rect = cardRef.current.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
@@ -106,7 +111,7 @@ function TiltAdvisorCard({ advisor }) {
   };
 
   const handleMouseLeave = () => {
-    if (!cardRef.current) return;
+    if (!cardRef.current || isTouchDevice) return;
     gsap.to(cardRef.current, {
       rotateX: 0,
       rotateY: 0,
@@ -122,7 +127,7 @@ function TiltAdvisorCard({ advisor }) {
         className="group relative rounded-3xl overflow-hidden bg-[#1A1B23]/40 border border-white/5 shadow-2xl transition-all duration-500 hover:border-accent/40 hover:shadow-[0_0_40px_rgba(159,131,241,0.2)] flex flex-col h-full"
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
-        style={{ transformStyle: 'preserve-3d', willChange: 'transform' }}
+        style={{ transformStyle: 'preserve-3d', willChange: isTouchDevice ? 'auto' : 'transform' }}
       >
         <div className="h-72 w-full shrink-0 overflow-hidden relative">
           <div className="absolute inset-0 bg-gradient-to-t from-[#14151B] to-transparent z-10"></div>
