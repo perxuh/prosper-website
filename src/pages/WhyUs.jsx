@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -47,6 +48,11 @@ export default function WhyUs() {
 
   return (
     <div ref={containerRef} className="pt-32 pb-40 px-6 md:px-12 max-w-5xl mx-auto relative min-h-screen overflow-hidden">
+      <Helmet>
+        <title>Why Prosper | Fiduciary Financial Education Platform</title>
+        <meta name="description" content="Discover why Prosper is different. Built on 25+ years of wealth management experience, $220M+ in managed assets, and 0% platform AUM fees. Real advisors. Real education. Real results." />
+        <link rel="canonical" href="https://www.buildingwealthsoftware.com/why-us" />
+      </Helmet>
       
       {/* Background Ambient Effects */}
       <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
@@ -56,57 +62,86 @@ export default function WhyUs() {
 
       <div className="relative z-10">
         <div className="narrative-block text-center mb-24">
-          <div className="inline-block text-cyan text-sm uppercase tracking-widest font-bold mb-4 bg-cyan/10 px-4 py-1.5 rounded-full border border-cyan/20 backdrop-blur-sm">
-            The Philosophy
+          <div className="inline-block text-[#9F83F1] text-sm uppercase tracking-widest font-bold mb-4 bg-[#9F83F1]/10 px-4 py-1.5 rounded-full border border-[#9F83F1]/20 backdrop-blur-sm">
+            Why Prosper
           </div>
-          <h1 className="font-heading font-bold text-5xl md:text-7xl text-white tracking-tighter leading-none mb-6">
-            Wealth is <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent via-pink to-cyan italic font-drama pe-4">Asymmetric</span>
+          <h1 className="font-heading font-bold text-5xl md:text-7xl text-white tracking-tighter leading-tight mb-6">
+            A Smarter Way to Build <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent via-pink to-cyan italic font-drama pe-4">Your Portfolio</span>
           </h1>
-          <p className="font-heading text-xl text-white/50 max-w-2xl mx-auto leading-relaxed">
-            The traditional financial system is built to keep the complex opaque and the simple expensive. We engineered Prosper to shatter that asymmetry.
+          <p className="font-heading text-xl text-white/60 max-w-3xl mx-auto leading-relaxed">
+            Most investing platforms give you tools without guidance or guidance without clarity. Prosper brings both together so you can learn faster, track everything in one place, and move forward with confidence supported by real advisors and intelligent education.
           </p>
         </div>
 
         <div className="space-y-16 mt-32 border-l border-white/10 pl-8 md:pl-16 relative">
-          <div className="absolute top-0 bottom-0 left-[-1px] w-[2px] bg-gradient-to-b from-accent via-cyan to-transparent"></div>
+          <div className="absolute top-0 bottom-0 left-[-1px] w-[2px] bg-gradient-to-b from-accent via-pink to-transparent"></div>
           
-          <div className="narrative-block relative">
-            <div className="absolute -left-[41px] md:-left-[73px] top-2 w-4 h-4 bg-[#14151B] border-2 border-accent rounded-full shadow-[0_0_15px_#9F83F1]"></div>
-            <h2 className="font-heading font-bold text-3xl text-white mb-4">The Information Gap</h2>
-            <p className="font-heading text-lg text-white/60 leading-relaxed max-w-3xl">
-              Wall Street thrives on information asymmetry. While institutional investors use algorithmic models and dedicated analysts to make decisions, retail investors are left with reactionary news and latency. <strong>Prosper’s AI Education Engine democratizes the institutional knowledge base.</strong>
-            </p>
-          </div>
-
-          <div className="narrative-block relative">
-            <div className="absolute -left-[41px] md:-left-[73px] top-2 w-4 h-4 bg-[#14151B] border-2 border-cyan rounded-full shadow-[0_0_15px_#46C7D9]"></div>
-            <h2 className="font-heading font-bold text-3xl text-white mb-4">The Advice Premium</h2>
-            <p className="font-heading text-lg text-white/60 leading-relaxed max-w-3xl">
-              A 1% AUM fee doesn't sound like much until you realize it devours nearly a third of your returns over 30 years. We replaced the rent-seeking model with a flat SaaS architecture, giving you direct access to <strong>fiduciary advisors who don't take a cut of your growth.</strong>
-            </p>
-          </div>
-
-          <div className="narrative-block relative">
-            <div className="absolute -left-[41px] md:-left-[73px] top-2 w-4 h-4 bg-[#14151B] border-2 border-pink rounded-full shadow-[0_0_15px_#DF74B8]"></div>
-            <h2 className="font-heading font-bold text-3xl text-white mb-4">The Interface Problem</h2>
-            <p className="font-heading text-lg text-white/60 leading-relaxed max-w-3xl">
-              Finance platforms look like spreadsheets from 1998 because their backend technology is from 1998. We built Prosper with modern UI engines, rendering complex data via WebGL to make tracking your portfolio feel like steering a spaceship.
-            </p>
-          </div>
+          {[
+            {
+              title: "Real Advisors From the Start",
+              copy: "Many apps rely only on automation. Prosper connects you with experienced fiduciary professionals who help you understand decisions as your portfolio grows.\n\nYou are not left guessing what to do next. You move forward with structure and support at every stage.",
+              color: "border-accent",
+              shadow: "shadow-[0_0_15px_#9F83F1]"
+            },
+            {
+              title: "Education That Helps You Take Action",
+              copy: "Learning about investing should feel simple and practical. Prosper uses intelligent education tools designed to explain retirement accounts, diversification, and long term strategy in a way that makes sense right away.\n\nYou learn what matters and how to apply it to your own goals.",
+              color: "border-cyan",
+              shadow: "shadow-[0_0_15px_#46C7D9]"
+            },
+            {
+              title: "Experience Behind the Platform",
+              copy: "Prosper is built by leadership with more than 25 years in financial planning and wealth management. That experience includes helping guide firms responsible for managing more than 220 million dollars in client assets.\n\nThe platform reflects strategies shaped through years of working directly with investors building real portfolios.",
+              color: "border-pink",
+              shadow: "shadow-[0_0_15px_#DF74B8]"
+            },
+            {
+              title: "Everything in One Clear Dashboard",
+              copy: "Your finances should not live across multiple disconnected platforms. Prosper brings your accounts together so you can track progress, monitor performance, and stay focused on long term growth without confusion.",
+              color: "border-accent",
+              shadow: "shadow-[0_0_15px_#9F83F1]"
+            },
+            {
+              title: "Built for Where You Are Today",
+              copy: "Whether you are opening your first investment account or organizing a growing portfolio, Prosper adapts to support your next step.\n\nYou get education when you are learning. You get guidance when decisions matter more. You keep control as your financial picture becomes stronger.",
+              color: "border-cyan",
+              shadow: "shadow-[0_0_15px_#46C7D9]"
+            },
+            {
+              title: "Transparent and Simple Pricing",
+              copy: "Prosper keeps platform pricing clear so you always know what you are paying for. There are no platform AUM fees tied to your account balance.\n\nYou stay focused on building wealth instead of worrying about hidden costs.",
+              color: "border-pink",
+              shadow: "shadow-[0_0_15px_#DF74B8]"
+            }
+          ].map((section, index) => (
+            <div key={index} className="narrative-block relative">
+              <div className={`absolute -left-[41px] md:-left-[73px] top-2 w-4 h-4 bg-[#14151B] border-2 ${section.color} rounded-full ${section.shadow}`}></div>
+              <h2 className="font-heading font-bold text-3xl text-white mb-4">{section.title}</h2>
+              {section.copy.split('\n\n').map((paragraph, i) => (
+                <p key={i} className="font-heading text-lg text-white/60 leading-relaxed max-w-3xl mb-4 last:mb-0">
+                  {paragraph}
+                </p>
+              ))}
+            </div>
+          ))}
         </div>
 
-        <div className="stats-section grid grid-cols-1 md:grid-cols-3 gap-6 mt-32">
-          <div className="stat-card p-8 bg-surface border border-white/5 rounded-3xl text-center backdrop-blur-xl">
-            <div className="font-drama text-5xl text-white mb-2 shadow-accent drop-shadow-[0_0_10px_rgba(255,255,255,0.3)]">0%</div>
-            <div className="font-heading text-sm text-white/50 tracking-wide uppercase">AUM Fees</div>
+        <div className="stats-section grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-32">
+           <div className="stat-card p-8 bg-surface border border-white/5 rounded-3xl text-center backdrop-blur-xl flex flex-col items-center justify-center min-h-[160px]">
+            <div className="font-drama text-5xl text-white mb-3 shadow-accent drop-shadow-[0_0_10px_rgba(255,255,255,0.3)]">0%</div>
+            <div className="font-heading text-sm text-white/50 tracking-wide uppercase">Platform AUM Fees</div>
           </div>
-          <div className="stat-card p-8 bg-surface border border-white/5 rounded-3xl text-center backdrop-blur-xl">
-            <div className="font-drama text-5xl text-accent mb-2 drop-shadow-[0_0_10px_rgba(159,131,241,0.5)]">100%</div>
-            <div className="font-heading text-sm text-white/50 tracking-wide uppercase">Fiduciary Standard</div>
+          <div className="stat-card p-8 bg-surface border border-white/5 rounded-3xl text-center backdrop-blur-xl flex flex-col items-center justify-center min-h-[160px]">
+            <div className="font-drama text-5xl text-accent mb-3 drop-shadow-[0_0_10px_rgba(159,131,241,0.5)]">25+</div>
+            <div className="font-heading text-sm text-white/50 tracking-wide uppercase">Years Leadership Experience</div>
           </div>
-          <div className="stat-card p-8 bg-surface border border-white/5 rounded-3xl text-center backdrop-blur-xl">
-            <div className="font-drama text-5xl text-cyan mb-2 drop-shadow-[0_0_10px_rgba(70,199,217,0.5)]">24/7</div>
-            <div className="font-heading text-sm text-white/50 tracking-wide uppercase">AI Accessibility</div>
+          <div className="stat-card p-8 bg-surface border border-white/5 rounded-3xl text-center backdrop-blur-xl flex flex-col items-center justify-center min-h-[160px]">
+            <div className="font-drama text-5xl text-pink mb-3 drop-shadow-[0_0_10px_rgba(223,116,184,0.5)]">$220M+</div>
+            <div className="font-heading text-sm text-white/50 tracking-wide uppercase">Client Assets Managed</div>
+          </div>
+          <div className="stat-card p-8 bg-surface border border-white/5 rounded-3xl text-center backdrop-blur-xl flex flex-col items-center justify-center min-h-[160px]">
+             <div className="font-drama text-5xl text-cyan mb-3 drop-shadow-[0_0_10px_rgba(70,199,217,0.5)]">24/7</div>
+            <div className="font-heading text-sm text-white/50 tracking-wide uppercase">AI Education Access</div>
           </div>
         </div>
       </div>

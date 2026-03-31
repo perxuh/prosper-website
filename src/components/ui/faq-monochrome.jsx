@@ -4,27 +4,27 @@ const INTRO_STYLE_ID = "faq1-animations-prosper";
 
 const faqs = [
   {
-    question: "Is my banking data actually secure?",
+    question: "Is my banking data secure",
     answer:
-      "Yes. We utilize military-grade 256-bit AES encryption across our entire infrastructure. By partnering with enterprise-tier aggregators like Plaid, we never directly store, touch, or process your raw banking credentials.",
+      "Yes. Prosper uses secure encryption and trusted financial data providers like Plaid. Your login credentials remain protected and are never stored by Prosper.",
     meta: "SECURITY & COMPLIANCE",
   },
   {
-    question: "How does the AI differ from your human advisors?",
+    question: "How does the AI differ from human advisors",
     answer:
-      "Our deterministic AI models provide instantaneous, micro-second optimizations for portfolio weighting and continuous daily tax-loss harvesting. Human fiduciaries step in exclusively for complex edge cases like illiquid startup equity, estate planning, and emotional guidance.",
+      "Prosper’s AI helps you learn and understand financial topics quickly. Advisors help you apply those insights to real decisions based on your situation and goals.",
     meta: "ADVISORY DUALITY",
   },
   {
-    question: "Are there any hidden algorithmic trading or routing fees?",
+    question: "Are there hidden platform fees",
     answer:
-      "Absolutely not. Prosper operates on a strictly transparent SaaS subscription base. Your premium tiers inherently cover all execution, routing, and slippage fees—ensuring our financial incentives map perfectly to your net-worth growth.",
+      "No. Prosper uses simple monthly pricing with no hidden platform charges.",
     meta: "TRANSPARENT PRICING",
   },
   {
-    question: "How long does the real-time portfolio sync take?",
+    question: "How long does account syncing take",
     answer:
-      "Less than 90 seconds. Our zero-latency data infrastructure maps directly to over 11,000 global financial institutions, aggregating historical data and generating your initial optimized portfolio projection almost entirely instantaneously.",
+      "Most accounts connect within minutes and continue updating automatically so your dashboard stays current.",
     meta: "LATENCY & SYSTEMS",
   },
 ];
@@ -234,10 +234,10 @@ export function FAQSection() {
         <header className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between mb-8">
           <div className="space-y-4 font-heading">
             <h1 className="text-4xl font-bold leading-tight md:text-5xl text-white">
-              System clarity, total transparency.
+              Prosper FAQ
             </h1>
             <p className="max-w-xl text-lg text-white/50 leading-relaxed font-light">
-              Everything you need to know about our security architecture, algorithmic routing, and fiduciary framework.
+              Clear answers. Full transparency.
             </p>
           </div>
         </header>

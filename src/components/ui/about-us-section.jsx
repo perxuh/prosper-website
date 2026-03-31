@@ -22,8 +22,8 @@ export default function AboutUsSection() {
   const [isVisible, setIsVisible] = useState(false)
   const sectionRef = useRef(null)
   const statsRef = useRef(null)
-  const isInView = useInView(sectionRef, { once: false, amount: 0.1 })
-  const isStatsInView = useInView(statsRef, { once: false, amount: 0.3 })
+  const isInView = useInView(sectionRef, { once: false, amount: 0.01 })
+  const isStatsInView = useInView(statsRef, { once: false, amount: 0.1 })
 
   // Parallax effect for decorative elements
   const { scrollYProgress } = useScroll({
@@ -45,8 +45,8 @@ export default function AboutUsSection() {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.2,
-        delayChildren: 0.3,
+        staggerChildren: 0.15,
+        delayChildren: 0.1,
       },
     },
   }
@@ -56,7 +56,7 @@ export default function AboutUsSection() {
     visible: {
       y: 0,
       opacity: 1,
-      transition: { duration: 0.6, ease: "easeOut" },
+      transition: { duration: 0.5, ease: "easeOut" },
     },
   }
 
@@ -64,59 +64,59 @@ export default function AboutUsSection() {
     {
       icon: <Cpu className="w-6 h-6" />,
       secondaryIcon: <Sparkles className="w-4 h-4 absolute -top-1 -right-1 text-[#9F83F1]" />,
-      title: "Algorithmic Trading",
-      description: "Advanced low-latency routing and predictive modeling working 24/7 to optimize your entry and exit points seamlessly.",
+      title: "Smart Investment Infrastructure",
+      description: "Built to support informed decisions. Prosper connects education, insights, and tracking tools so you always understand how your strategy fits your goals.",
       position: "left",
     },
     {
       icon: <ShieldCheck className="w-6 h-6" />,
       secondaryIcon: <CheckCircle className="w-4 h-4 absolute -top-1 -right-1 text-[#9F83F1]" />,
-      title: "Bank-Level Security",
-      description: "Military-grade 256-bit encryption, SOC-2 compliance, and direct Plaid integration keeps your personal data completely isolated.",
+      title: "Bank Level Security",
+      description: "Your data stays protected through secure encryption and trusted financial integrations. Prosper never stores your banking credentials.",
       position: "left",
     },
     {
       icon: <Activity className="w-6 h-6" />,
       secondaryIcon: <Star className="w-4 h-4 absolute -top-1 -right-1 text-[#9F83F1]" />,
-      title: "Real-Time Tracking",
-      description: "Zero-latency data visualization provides instantaneous, cinematic feedback on your entire aggregate net worth.",
+      title: "Real Time Tracking",
+      description: "Monitor your net worth, accounts, and investment performance in one unified dashboard designed for clarity and speed.",
       position: "left",
     },
     {
       icon: <TrendingUp className="w-6 h-6" />,
       secondaryIcon: <Sparkles className="w-4 h-4 absolute -top-1 -right-1 text-[#9F83F1]" />,
-      title: "Tax-Loss Harvesting",
-      description: "Automated daily scanning across your portfolio to mathematically offset capital gains and save thousands at year-end.",
+      title: "Tax Efficient Insights",
+      description: "Identify opportunities to reduce unnecessary taxes and keep more of what you earn with smarter portfolio awareness.",
       position: "right",
     },
     {
       icon: <User className="w-6 h-6" />,
       secondaryIcon: <CheckCircle className="w-4 h-4 absolute -top-1 -right-1 text-[#9F83F1]" />,
-      title: "Human Fiduciaries",
-      description: "Direct access to certified human experts who intimately understand startup equity, liquidity events, and tax architecture.",
+      title: "Human Advisor Access",
+      description: "Speak with experienced professionals who help turn financial education into structured action plans aligned with your priorities.",
       position: "right",
     },
     {
       icon: <Globe className="w-6 h-6" />,
       secondaryIcon: <Star className="w-4 h-4 absolute -top-1 -right-1 text-[#9F83F1]" />,
-      title: "Global Markets",
-      description: "Frictionless access to domestic, international, and emerging markets, fully compiled into one single intelligent dashboard.",
+      title: "Connected Global Markets",
+      description: "View your investments across multiple accounts and institutions in one place with a single financial picture that stays up to date.",
       position: "right",
     },
   ]
 
   const stats = [
-    { icon: <TrendingUp />, value: 2, label: "Assets Managed", suffix: "B+" },
-    { icon: <Users />, value: 15, label: "Premium Members", suffix: "k+" },
-    { icon: <Activity />, value: 99, label: "System Uptime", suffix: ".9%" },
-    { icon: <Cpu />, value: 0, label: "Trading Fees", suffix: "$" },
+    { icon: <Activity />, value: 10, label: "Linked Accounts Tracked", suffix: "k+" },
+    { icon: <User />, value: 50, label: "Advisor Network", suffix: "+" },
+    { icon: <ShieldCheck />, value: 100, label: "Secure Integrations", suffix: "%" },
+    { icon: <Cpu />, value: 0, label: "Hidden Platform Fees", suffix: "$" },
   ]
 
   return (
     <section
       id="about-section"
       ref={sectionRef}
-      className="w-full py-24 px-4 bg-transparent text-white overflow-hidden relative z-10"
+      className="w-full pt-12 pb-24 px-4 bg-transparent text-white overflow-hidden relative z-10"
     >
       {/* Decorative background elements */}
       <motion.div
@@ -164,12 +164,12 @@ export default function AboutUsSection() {
             className="text-[#46C7D9] font-data text-sm tracking-[0.2em] mb-4 flex items-center gap-2"
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
           >
             <Zap className="w-4 h-4" />
             THE PROSPER METHODOLOGY
           </motion.span>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold mb-6 text-center tracking-tight drop-shadow-md">Platform Philosophy</h2>
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold mb-6 text-center tracking-tight drop-shadow-md">Prosper Helps You Build Wealth</h2>
           <motion.div
             className="w-24 h-1 bg-[#46C7D9] rounded-full shadow-[0_0_10px_#46C7D9]"
             initial={{ width: 0 }}
@@ -179,7 +179,7 @@ export default function AboutUsSection() {
         </motion.div>
 
         <motion.p className="text-center font-heading text-lg max-w-2xl mx-auto mb-20 text-white/70 leading-relaxed" variants={itemVariants}>
-          We are a team of quantitative engineers, fiduciaries, and product designers dedicated to democratizing institutional-grade wealth management. By blending algorithmic precision with human insight, we fundamentally transform how you grow your capital.
+          Prosper combines intelligent financial education with access to experienced advisors so more people can build wealth with structure and confidence. Our platform helps you understand your finances, track progress clearly, and take the next step when you are ready.
         </motion.p>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-8 relative">

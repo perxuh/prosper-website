@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Outlet, Link, useLocation } from 'react-router-dom';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -49,7 +49,7 @@ function Navbar({ onOpenWaitlist }) {
             <Link to="/features" className={`hover:-translate-y-[1px] transition-transform ${location.pathname==='/features' ? 'text-white' : 'text-white/80 hover:text-white'}`}>Features</Link>
             <Link to="/about" className={`hover:-translate-y-[1px] transition-transform ${location.pathname==='/about' ? 'text-white' : 'text-white/80 hover:text-white'}`}>About Us</Link>
             <Link to="/why-us" className={`hover:-translate-y-[1px] transition-transform ${location.pathname==='/why-us' ? 'text-white' : 'text-white/80 hover:text-white'}`}>Why Us?</Link>
-            <Link to="/#faq" className="hover:-translate-y-[1px] transition-transform text-white/80 hover:text-white">FAQ</Link>
+            <Link to="/faq" className={`hover:-translate-y-[1px] transition-transform ${location.pathname==='/faq' ? 'text-white' : 'text-white/80 hover:text-white'}`}>FAQ</Link>
           </div>
           <div className="relative z-10">
             <LiquidButton colorMode="purple" size="sm" onClick={onOpenWaitlist}>
@@ -72,7 +72,7 @@ function Footer() {
              Prosper
           </Link>
           <p className="font-heading text-white/40 text-sm leading-relaxed">
-            Bridge the gap between expert human financial advisors and modern AI-powered education. Learn, grow, and build wealth at your own pace.
+            Bridge the gap between intelligent financial education and real advisor guidance. Learn faster. Track everything clearly. Build wealth with structure and confidence. 📊💬📈
           </p>
         </div>
         <div className="flex gap-16 justify-center md:justify-end">

@@ -1,16 +1,22 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, lazy, Suspense } from 'react';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import Layout from './components/layout/Layout';
-import Home from './pages/Home';
-import Features from './pages/Features';
-import AboutUs from './pages/AboutUs';
-import WhyUs from './pages/WhyUs';
+
+// Lazy load all non-home pages — they only download when navigated to
+const Home = lazy(() => import('./pages/Home'));
+const Features = lazy(() => import('./pages/Features'));
+const AboutUs = lazy(() => import('./pages/AboutUs'));
+const WhyUs = lazy(() => import('./pages/WhyUs'));
+const FAQ = lazy(() => import('./pages/FAQ'));
 
 function ScrollToTop() {
-  const { pathname } = useLocation();
+  const { pathname, hash } = useLocation();
   useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [pathname]);
+    // If there's a hash, skip the scroll-to-top entirely — let the hash handle scrolling
+    if (!hash) {
+      window.scrollTo(0, 0);
+    }
+  }, [pathname, hash]);
   return null;
 }
 
@@ -18,14 +24,17 @@ export default function App() {
   return (
     <BrowserRouter>
       <ScrollToTop />
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />
-          <Route path="features" element={<Features />} />
-          <Route path="about" element={<AboutUs />} />
-          <Route path="why-us" element={<WhyUs />} />
-        </Route>
-      </Routes>
+      <Suspense fallback={null}>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<Home />} />
+            <Route path="features" element={<Features />} />
+            <Route path="about" element={<AboutUs />} />
+            <Route path="why-us" element={<WhyUs />} />
+            <Route path="faq" element={<FAQ />} />
+          </Route>
+        </Routes>
+      </Suspense>
     </BrowserRouter>
   );
 }
