@@ -200,19 +200,19 @@ export default function AboutUs() {
   }, []);
 
   return (
-    <div ref={containerRef} className="pt-32 pb-32">
+    <div ref={containerRef} className="pt-20 pb-20 md:pt-32 md:pb-32">
       <Helmet>
         <title>About Us | Meet the Prosper Fiduciary Team</title>
         <meta name="description" content="Learn why Prosper was built and meet the fiduciary advisors behind the platform. 25+ years of wealth management experience helping investors at every stage build long-term financial clarity." />
         <link rel="canonical" href="https://www.buildingwealthsoftware.com/about" />
       </Helmet>
       {/* Advisors Section (Moved to top) */}
-      <div className="max-w-7xl mx-auto px-6 md:px-12 mb-40 relative z-10">
-        <div className="advisor-header text-center max-w-2xl mx-auto mb-20">
+      <div className="max-w-7xl mx-auto px-6 md:px-12 mb-20 md:mb-40 relative z-10">
+        <div className="advisor-header text-center max-w-2xl mx-auto mb-10 md:mb-20">
           <div className="inline-block text-[#9F83F1] text-sm uppercase tracking-widest font-bold mb-4 bg-[#9F83F1]/10 px-4 py-1.5 rounded-full border border-[#9F83F1]/20 backdrop-blur-sm">
             About Us
           </div>
-          <h2 className="font-heading font-bold text-5xl md:text-7xl text-white tracking-tight leading-none mb-6">
+          <h2 className="font-heading font-bold text-4xl md:text-7xl text-white tracking-tight leading-none mb-6">
             Meet the <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent via-pink to-cyan italic font-drama pe-4">Fiduciaries</span>
           </h2>
           <p className="font-heading text-xl text-white/50 leading-relaxed max-w-2xl mx-auto">
@@ -229,12 +229,12 @@ export default function AboutUs() {
 
       {/* Timeline Narrative Sections */}
       <div className="max-w-5xl mx-auto px-6 md:px-12 relative z-10">
-        <div className="space-y-16 border-l border-white/10 pl-8 md:pl-16 relative timeline-container">
+        <div className="space-y-16 border-l border-white/10 pl-6 md:pl-16 relative timeline-container">
           <div className="absolute top-0 bottom-0 left-[-1px] w-[2px] bg-gradient-to-b from-accent via-pink to-transparent"></div>
           
           {copySections.map((section, index) => (
             <div key={index} className="narrative-timeline-block relative">
-              <div className={`absolute -left-[41px] md:-left-[73px] top-2 w-4 h-4 bg-[#14151B] border-2 ${section.color} rounded-full ${section.shadow}`}></div>
+              <div className={`absolute -left-[33px] md:-left-[73px] top-2 w-4 h-4 bg-[#14151B] border-2 ${section.color} rounded-full ${section.shadow}`}></div>
               <h2 className="font-heading font-bold text-3xl md:text-4xl text-white mb-6">{section.header}</h2>
               {section.copy.split('\n\n').map((paragraph, i) => (
                 <p key={i} className="font-heading text-lg md:text-xl text-white/60 leading-relaxed max-w-3xl mb-6 last:mb-0">

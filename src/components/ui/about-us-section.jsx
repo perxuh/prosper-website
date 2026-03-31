@@ -116,7 +116,7 @@ export default function AboutUsSection() {
     <section
       id="about-section"
       ref={sectionRef}
-      className="w-full pt-12 pb-24 px-4 bg-transparent text-white overflow-hidden relative z-10"
+      className="w-full pt-8 pb-16 md:pt-12 md:pb-24 px-4 bg-transparent text-white overflow-hidden relative z-10"
     >
       {/* Decorative background elements */}
       <motion.div

@@ -64,7 +64,7 @@ function Hero({ onOpenWaitlist }) {
     <section 
       ref={containerRef}
       onMouseMove={handleMouseMove}
-      className="relative min-h-[100dvh] w-full flex items-center justify-center pt-32 pb-24 overflow-hidden bg-transparent"
+      className="relative min-h-[100dvh] w-full flex items-center justify-center pt-32 pb-12 md:pb-24 overflow-hidden bg-transparent"
       style={{ perspective: "1000px" }}
     >
       {/* Static Over-sized Video Canvas to prevent object-cover resize artifacts */}
@@ -140,7 +140,7 @@ function Hero({ onOpenWaitlist }) {
                 </LiquidButton>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-16 max-w-4xl mx-auto w-full text-left">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-6 pt-8 md:pt-16 max-w-4xl mx-auto w-full text-left">
               {[
                 { 
                   title: "AI Education", 
@@ -277,52 +277,106 @@ function AppWalkthrough() {
   }, []);
 
   return (
-    <section ref={sectionRef} id="app-walkthrough" className="h-screen w-full bg-transparent relative overflow-hidden flex items-center justify-center p-6 z-20 pt-24">
-      <div className="max-w-6xl w-full mx-auto flex flex-col md:flex-row items-center justify-between gap-12 relative z-10 px-4 md:px-12">
-        <div className="w-full md:w-1/2 relative h-64 md:h-96 flex items-center justify-center text-center md:text-left">
-          <div ref={text1ContainerRef} className="absolute inset-x-0 opacity-0 translate-y-10">
-            <div ref={text1Ref} className="flex flex-col items-center md:items-start text-center md:text-left">
-              <h3 className="font-heading font-bold text-3xl text-white mb-4">Dashboard</h3>
-              <p className="font-heading text-white/70 text-xl leading-relaxed mb-8">Understand your financial position instantly. Visual tools help you monitor growth, transfers, and account activity without complexity.</p>
-              <LiquidButton colorMode="purple" onClick={() => navigate('/features#portfolio-tracking')}>
+    <>
+      {/* ── MOBILE: static stacked cards (no pin, no GSAP scrub) ── */}
+      <section className="md:hidden w-full px-6 pt-8 pb-16 bg-transparent relative z-20">
+        <div className="max-w-lg mx-auto space-y-8">
+          <div className="text-center mb-12">
+            <div className="inline-block text-[#9F83F1] text-xs uppercase tracking-widest font-bold mb-3 bg-[#9F83F1]/10 px-3 py-1 rounded-full border border-[#9F83F1]/20">
+              Inside the App
+            </div>
+            <h2 className="font-heading font-bold text-3xl text-white">Everything You Need</h2>
+          </div>
+          {[
+            {
+              title: 'Dashboard',
+              desc: 'Understand your financial position instantly. Visual tools help you monitor growth, transfers, and account activity without complexity.',
+              img: '/app_dashboard.png',
+              color: 'from-[#4ADE80]/20',
+              hash: 'portfolio-tracking'
+            },
+            {
+              title: 'AI Powered Education',
+              desc: 'Ask questions anytime. Get simple answers about Roth IRAs, 401ks, diversification, and long term investing without needing prior experience.',
+              img: '/app_education.png',
+              color: 'from-cyan/20',
+              hash: 'ai-education'
+            },
+            {
+              title: 'Human Advisors',
+              desc: 'Move from learning to action with guidance from professionals who help you make informed financial decisions with structure and direction.',
+              img: '/app_advisor.png',
+              color: 'from-accent/20',
+              hash: 'human-advisors'
+            },
+          ].map((item, i) => (
+            <div key={i} className="rounded-3xl border border-white/10 bg-[#1A1B23]/60 backdrop-blur-xl overflow-hidden shadow-2xl">
+              <div className={`h-52 relative bg-gradient-to-br ${item.color} to-transparent`}>
+                <img src={item.img} alt={item.title} loading="lazy" className="absolute inset-0 w-full h-full object-cover mix-blend-screen opacity-90" />
+              </div>
+              <div className="p-6">
+                <h3 className="font-heading font-bold text-xl text-white mb-2">{item.title}</h3>
+                <p className="font-heading text-white/60 text-sm leading-relaxed mb-4">{item.desc}</p>
+                <button
+                  onClick={() => navigate(`/features#${item.hash}`)}
+                  className="text-[#9F83F1] font-heading font-semibold text-sm flex items-center gap-2 hover:text-white transition-colors"
+                >
+                  Learn More <ArrowRight size={16} />
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ── DESKTOP: full GSAP pinned animation ── */}
+      <section ref={sectionRef} id="app-walkthrough" className="hidden md:flex h-screen w-full bg-transparent relative overflow-hidden items-center justify-center p-6 z-20 pt-24">
+        <div className="max-w-6xl w-full mx-auto flex flex-row items-center justify-between gap-12 relative z-10 px-12">
+          <div className="w-1/2 relative h-96 flex items-center justify-center text-left">
+            <div ref={text1ContainerRef} className="absolute inset-x-0 opacity-0 translate-y-10">
+              <div ref={text1Ref} className="flex flex-col items-start text-left">
+                <h3 className="font-heading font-bold text-3xl text-white mb-4">Dashboard</h3>
+                <p className="font-heading text-white/70 text-xl leading-relaxed mb-8">Understand your financial position instantly. Visual tools help you monitor growth, transfers, and account activity without complexity.</p>
+                <LiquidButton colorMode="purple" onClick={() => navigate('/features#portfolio-tracking')}>
+                  Learn More <ArrowRight size={20} />
+                </LiquidButton>
+              </div>
+            </div>
+            <div ref={text2Ref} className="absolute inset-x-0 opacity-0 translate-y-10 flex flex-col items-start text-left">
+              <h3 className="font-heading font-bold text-3xl text-white mb-4">AI Powered Education</h3>
+              <p className="font-heading text-white/70 text-xl leading-relaxed mb-8">Ask questions anytime. Get simple answers about Roth IRAs, 401ks, diversification, and long term investing without needing prior experience.</p>
+              <LiquidButton colorMode="purple" onClick={() => navigate('/features#ai-education')}>
+                Learn More <ArrowRight size={20} />
+              </LiquidButton>
+            </div>
+            <div ref={text3Ref} className="absolute inset-x-0 opacity-0 translate-y-10 flex flex-col items-start text-left">
+              <h3 className="font-heading font-bold text-3xl text-white mb-4">Human Advisors</h3>
+              <p className="font-heading text-white/70 text-xl leading-relaxed mb-8">Move from learning to action with guidance from professionals who help you make informed financial decisions with structure and direction.</p>
+              <LiquidButton colorMode="purple" onClick={() => navigate('/features#human-advisors')}>
                 Learn More <ArrowRight size={20} />
               </LiquidButton>
             </div>
           </div>
-          <div ref={text2Ref} className="absolute inset-x-0 opacity-0 translate-y-10 flex flex-col items-center md:items-start text-center md:text-left">
-            <h3 className="font-heading font-bold text-3xl text-white mb-4">AI Powered Education</h3>
-            <p className="font-heading text-white/70 text-xl leading-relaxed mb-8">Ask questions anytime. Get simple answers about Roth IRAs, 401ks, diversification, and long term investing without needing prior experience.</p>
-            <LiquidButton colorMode="purple" onClick={() => navigate('/features#ai-education')}>
-              Learn More <ArrowRight size={20} />
-            </LiquidButton>
-          </div>
-          <div ref={text3Ref} className="absolute inset-x-0 opacity-0 translate-y-10 flex flex-col items-center md:items-start text-center md:text-left">
-            <h3 className="font-heading font-bold text-3xl text-white mb-4">Human Advisors</h3>
-            <p className="font-heading text-white/70 text-xl leading-relaxed mb-8">Move from learning to action with guidance from professionals who help you make informed financial decisions with structure and direction.</p>
-            <LiquidButton colorMode="purple" onClick={() => navigate('/features#human-advisors')}>
-              Learn More <ArrowRight size={20} />
-            </LiquidButton>
-          </div>
-        </div>
 
-        <div className="w-full md:w-1/2 flex justify-center perspective-[2000px]">
-          <div ref={phoneContainerRef} className="iphone-container relative">
-            <div ref={phoneRef} className="iphone-body relative z-10 transition-shadow bg-[#1B1B22] border border-white/5 ring-4 ring-[#14151B] shadow-2xl shadow-black/50">
-              <div className="iphone-dynamic-island shadow-md flex items-center justify-center">
-                 <div className="w-2 h-2 rounded-full bg-cyan/80 ml-auto mr-4 shadow-[0_0_10px_#46C7D9]"></div>
-              </div>
-              <div className="iphone-screen bg-[#14151B] border-[4px] border-[#0A0A0D]">
-                <div ref={screenContentRef} className="w-full h-[300%] flex flex-col pt-0 mix-blend-screen opacity-90 contrast-125">
-                  <div className="h-1/3 w-full shrink-0 relative"><img src="/app_dashboard.png" className="absolute inset-0 w-full h-full object-cover" alt="Dashboard" /></div>
-                  <div className="h-1/3 w-full shrink-0 relative"><img src="/app_education.png" className="absolute inset-0 w-full h-full object-cover" alt="Heatmap" /></div>
-                  <div className="h-1/3 w-full shrink-0 relative"><img src="/app_advisor.png" className="absolute inset-0 w-full h-full object-cover" alt="Transfers" /></div>
+          <div className="w-1/2 flex justify-center perspective-[2000px]">
+            <div ref={phoneContainerRef} className="iphone-container relative">
+              <div ref={phoneRef} className="iphone-body relative z-10 transition-shadow bg-[#1B1B22] border border-white/5 ring-4 ring-[#14151B] shadow-2xl shadow-black/50">
+                <div className="iphone-dynamic-island shadow-md flex items-center justify-center">
+                   <div className="w-2 h-2 rounded-full bg-cyan/80 ml-auto mr-4 shadow-[0_0_10px_#46C7D9]"></div>
+                </div>
+                <div className="iphone-screen bg-[#14151B] border-[4px] border-[#0A0A0D]">
+                  <div ref={screenContentRef} className="w-full h-[300%] flex flex-col pt-0 mix-blend-screen opacity-90 contrast-125">
+                    <div className="h-1/3 w-full shrink-0 relative"><img src="/app_dashboard.png" className="absolute inset-0 w-full h-full object-cover" alt="Dashboard" /></div>
+                    <div className="h-1/3 w-full shrink-0 relative"><img src="/app_education.png" className="absolute inset-0 w-full h-full object-cover" alt="Education" /></div>
+                    <div className="h-1/3 w-full shrink-0 relative"><img src="/app_advisor.png" className="absolute inset-0 w-full h-full object-cover" alt="Advisor" /></div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 }
 
@@ -392,9 +446,9 @@ function PricingTiers({ onOpenWaitlist }) {
   }, []);
 
   return (
-    <section ref={containerRef} id="pricing" className="py-32 px-6 bg-transparent relative z-10 overflow-hidden">
+    <section ref={containerRef} id="pricing" className="py-16 md:py-32 px-6 bg-transparent relative z-10 overflow-hidden">
       <div className="max-w-7xl mx-auto relative z-10">
-        <div className="text-center mb-24 pricing-header">
+        <div className="text-center mb-12 md:mb-24 pricing-header">
           <h2 className="font-heading font-bold text-4xl text-white">Subscription Tiers</h2>
           <p className="font-heading text-white/50 mt-4 text-lg">Choose the right level of support for your financial journey.</p>
         </div>
@@ -498,9 +552,9 @@ function Testimonials() {
   ];
 
   return (
-    <section id="testimonials" ref={containerRef} className="relative w-full flex flex-col items-center justify-center -mt-24 md:-mt-48 pb-12 pt-12 px-6 lg:px-24 bg-transparent z-10 overflow-hidden transform-gpu">
-      <div className="text-center mb-16 relative z-20">
-        <h2 className="font-heading text-white text-5xl md:text-6xl font-bold tracking-tight">Member Experience</h2>
+    <section id="testimonials" ref={containerRef} className="relative w-full flex flex-col items-center justify-center -mt-12 md:-mt-48 pb-8 pt-8 md:pb-12 md:pt-12 px-6 lg:px-24 bg-transparent z-10 overflow-hidden transform-gpu">
+      <div className="text-center mb-8 md:mb-16 relative z-20">
+        <h2 className="font-heading text-white text-4xl md:text-6xl font-bold tracking-tight">Member Experience</h2>
       </div>
       <CircularTestimonials
         testimonials={testimonials}

@@ -47,7 +47,7 @@ export default function WhyUs() {
   }, []);
 
   return (
-    <div ref={containerRef} className="pt-32 pb-40 px-6 md:px-12 max-w-5xl mx-auto relative min-h-screen overflow-hidden">
+    <div ref={containerRef} className="pt-20 pb-20 md:pt-32 md:pb-40 px-6 md:px-12 max-w-5xl mx-auto relative min-h-screen overflow-hidden">
       <Helmet>
         <title>Why Prosper | Fiduciary Financial Education Platform</title>
         <meta name="description" content="Discover why Prosper is different. Built on 25+ years of wealth management experience, $220M+ in managed assets, and 0% platform AUM fees. Real advisors. Real education. Real results." />
@@ -61,11 +61,11 @@ export default function WhyUs() {
       </div>
 
       <div className="relative z-10">
-        <div className="narrative-block text-center mb-24">
+        <div className="narrative-block text-center mb-12 md:mb-24">
           <div className="inline-block text-[#9F83F1] text-sm uppercase tracking-widest font-bold mb-4 bg-[#9F83F1]/10 px-4 py-1.5 rounded-full border border-[#9F83F1]/20 backdrop-blur-sm">
             Why Prosper
           </div>
-          <h1 className="font-heading font-bold text-5xl md:text-7xl text-white tracking-tighter leading-tight mb-6">
+          <h1 className="font-heading font-bold text-4xl md:text-7xl text-white tracking-tighter leading-tight mb-6">
             A Smarter Way to Build <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent via-pink to-cyan italic font-drama pe-4">Your Portfolio</span>
           </h1>
           <p className="font-heading text-xl text-white/60 max-w-3xl mx-auto leading-relaxed">
@@ -73,7 +73,7 @@ export default function WhyUs() {
           </p>
         </div>
 
-        <div className="space-y-16 mt-32 border-l border-white/10 pl-8 md:pl-16 relative">
+        <div className="space-y-16 mt-16 md:mt-32 border-l border-white/10 pl-6 md:pl-16 relative">
           <div className="absolute top-0 bottom-0 left-[-1px] w-[2px] bg-gradient-to-b from-accent via-pink to-transparent"></div>
           
           {[

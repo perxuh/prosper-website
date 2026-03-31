@@ -4,12 +4,19 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { LiquidButton } from '../ui/liquid-glass-button';
 import { WaitlistModal } from '../ui/waitlist-modal';
+import { X, Menu } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
 
 function Navbar({ onOpenWaitlist }) {
   const location = useLocation();
   const [isScrolled, setIsScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  // Close menu on route change
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [location.pathname]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -19,6 +26,14 @@ function Navbar({ onOpenWaitlist }) {
     handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
   }, [location.pathname]);
+
+  const navLinks = [
+    { to: '/', label: 'Home' },
+    { to: '/features', label: 'Features' },
+    { to: '/about', label: 'About Us' },
+    { to: '/why-us', label: 'Why Us?' },
+    { to: '/faq', label: 'FAQ' },
+  ];
 
   return (
     <>
@@ -32,11 +47,12 @@ function Navbar({ onOpenWaitlist }) {
           </filter>
         </defs>
       </svg>
+
       <div className="fixed top-6 left-0 right-0 z-50 flex justify-center px-4">
         <nav className="flex items-center justify-between w-full max-w-5xl px-6 py-4 rounded-full text-white relative isolate">
           {/* Liquid Glass Background Layers */}
-          <div 
-            className={`absolute inset-0 -z-20 rounded-[inherit] transition-all duration-500 origin-center border transition-colors border-white/10 shadow-[0_0_15px_rgba(255,255,255,0.05),inset_3px_3px_2px_-2px_rgba(255,255,255,0.1),inset_0_0_15px_10px_rgba(255,255,255,0.02)] bg-[#1A1C25]/80 ${isScrolled ? "scale-100 opacity-100" : "scale-95 opacity-0 pointer-events-none"}`} 
+          <div
+            className={`absolute inset-0 -z-20 rounded-[inherit] transition-all duration-500 origin-center border border-white/10 shadow-[0_0_15px_rgba(255,255,255,0.05),inset_3px_3px_2px_-2px_rgba(255,255,255,0.1),inset_0_0_15px_10px_rgba(255,255,255,0.02)] bg-[#1A1C25]/80 ${isScrolled ? 'scale-100 opacity-100' : 'scale-95 opacity-0 pointer-events-none'}`}
           />
           <div
             className={`absolute inset-0 -z-10 overflow-hidden rounded-[inherit] transition-opacity duration-500 ${isScrolled ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
@@ -44,20 +60,78 @@ function Navbar({ onOpenWaitlist }) {
           />
 
           <Link to="/" className="relative z-10 font-heading font-bold text-xl tracking-tight">Prosper</Link>
+
+          {/* Desktop nav links */}
           <div className="relative z-10 hidden md:flex gap-8 font-heading text-sm font-medium">
-            <Link to="/" className={`hover:-translate-y-[1px] transition-transform ${location.pathname==='/' ? 'text-white' : 'text-white/80 hover:text-white'}`}>Home</Link>
-            <Link to="/features" className={`hover:-translate-y-[1px] transition-transform ${location.pathname==='/features' ? 'text-white' : 'text-white/80 hover:text-white'}`}>Features</Link>
-            <Link to="/about" className={`hover:-translate-y-[1px] transition-transform ${location.pathname==='/about' ? 'text-white' : 'text-white/80 hover:text-white'}`}>About Us</Link>
-            <Link to="/why-us" className={`hover:-translate-y-[1px] transition-transform ${location.pathname==='/why-us' ? 'text-white' : 'text-white/80 hover:text-white'}`}>Why Us?</Link>
-            <Link to="/faq" className={`hover:-translate-y-[1px] transition-transform ${location.pathname==='/faq' ? 'text-white' : 'text-white/80 hover:text-white'}`}>FAQ</Link>
+            {navLinks.map((link) => (
+              <Link
+                key={link.to}
+                to={link.to}
+                className={`hover:-translate-y-[1px] transition-transform ${location.pathname === link.to ? 'text-white' : 'text-white/80 hover:text-white'}`}
+              >
+                {link.label}
+              </Link>
+            ))}
           </div>
-          <div className="relative z-10">
+
+          {/* Desktop CTA */}
+          <div className="relative z-10 hidden md:block">
             <LiquidButton colorMode="purple" size="sm" onClick={onOpenWaitlist}>
               Get Early Access
             </LiquidButton>
           </div>
+
+          {/* Mobile: hamburger button */}
+          <button
+            className="relative z-10 md:hidden p-2 rounded-xl text-white/80 hover:text-white hover:bg-white/10 transition-colors"
+            onClick={() => setMenuOpen((v) => !v)}
+            aria-label="Toggle menu"
+          >
+            {menuOpen ? <X size={22} /> : <Menu size={22} />}
+          </button>
         </nav>
       </div>
+
+      {/* Mobile slide-down menu */}
+      <div
+        className={`fixed inset-x-0 top-0 z-40 md:hidden transition-all duration-300 ease-in-out ${
+          menuOpen ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 -translate-y-4 pointer-events-none'
+        }`}
+      >
+        <div className="mx-4 mt-24 rounded-3xl bg-[#1A1C25]/95 backdrop-blur-2xl border border-white/10 shadow-2xl overflow-hidden">
+          <div className="flex flex-col p-6 gap-1">
+            {navLinks.map((link) => (
+              <Link
+                key={link.to}
+                to={link.to}
+                className={`font-heading text-lg font-medium py-3 px-4 rounded-2xl transition-colors ${
+                  location.pathname === link.to
+                    ? 'text-white bg-white/10'
+                    : 'text-white/70 hover:text-white hover:bg-white/5'
+                }`}
+              >
+                {link.label}
+              </Link>
+            ))}
+            <div className="pt-4 mt-2 border-t border-white/10">
+              <button
+                onClick={() => { setMenuOpen(false); onOpenWaitlist(); }}
+                className="w-full py-3 px-6 rounded-2xl font-heading font-semibold text-white bg-gradient-to-r from-accent to-pink shadow-[0_0_20px_rgba(159,131,241,0.3)] hover:shadow-[0_0_30px_rgba(159,131,241,0.5)] transition-all"
+              >
+                Get Early Access
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Mobile menu backdrop */}
+      {menuOpen && (
+        <div
+          className="fixed inset-0 z-30 md:hidden bg-black/40 backdrop-blur-sm"
+          onClick={() => setMenuOpen(false)}
+        />
+      )}
     </>
   );
 }
@@ -80,8 +154,8 @@ function Footer() {
             <h4 className="font-data text-accent text-xs tracking-widest uppercase font-bold">Platform</h4>
             <div className="flex flex-col gap-3 font-heading text-sm text-white/60">
               <Link to="/features" className="hover:text-cyan transition-colors">Features</Link>
-              <a href="#protocol" className="hover:text-cyan transition-colors">Protocol</a>
               <Link to="/about" className="hover:text-cyan transition-colors">Advisors</Link>
+              <Link to="/faq" className="hover:text-cyan transition-colors">FAQ</Link>
             </div>
           </div>
           <div className="space-y-4">

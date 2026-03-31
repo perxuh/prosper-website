@@ -95,7 +95,7 @@ export default function Features() {
   }, []);
 
   return (
-    <div ref={containerRef} className="pt-32 pb-24 px-6 md:px-12 w-full max-w-7xl mx-auto overflow-hidden">
+    <div ref={containerRef} className="pt-20 pb-16 md:pt-32 md:pb-24 px-6 md:px-12 w-full max-w-7xl mx-auto overflow-hidden">
       <Helmet>
         <title>Platform Capabilities | Prosper</title>
         <meta name="description" content="Explore Prosper's AI Education Engine, Certified Advisor Network, and Unified Wealth Dashboard. Tools built to help you learn investing, get fiduciary guidance, and track your portfolio." />
@@ -103,9 +103,9 @@ export default function Features() {
       </Helmet>
       
       {/* Hero Section */}
-      <div className="feature-hero text-center max-w-3xl mx-auto mb-32 relative">
+      <div className="feature-hero text-center max-w-3xl mx-auto mb-16 md:mb-32 relative">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-accent/20 rounded-full blur-[100px] -z-10"></div>
-        <h1 className="font-heading font-bold text-5xl md:text-7xl text-white mb-6 tracking-tight">
+        <h1 className="font-heading font-bold text-4xl md:text-7xl text-white mb-6 tracking-tight">
           Platform <span className="font-drama italic text-cyan drop-shadow-[0_0_30px_rgba(70,199,217,0.4)]">Capabilities</span>
         </h1>
         <p className="font-heading text-lg md:text-xl text-white/60 leading-relaxed">
@@ -114,7 +114,7 @@ export default function Features() {
       </div>
 
       {/* Feature Rows */}
-      <div className="space-y-32">
+      <div className="space-y-16 md:space-y-32">
         {features.map((feat, index) => (
           <div key={index} id={feat.id} className={`feature-row scroll-mt-32 flex flex-col ${index % 2 === 1 ? 'md:flex-row-reverse' : 'md:flex-row'} items-center gap-12 md:gap-24 relative`}>
             
