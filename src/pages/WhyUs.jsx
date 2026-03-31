@@ -66,7 +66,7 @@ export default function WhyUs() {
             Why Prosper
           </div>
           <h1 className="font-heading font-bold text-4xl md:text-7xl text-white tracking-tighter leading-tight mb-6">
-            A Smarter Way to Build <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent via-pink to-cyan italic font-drama pe-4">Your Portfolio</span>
+            Your Financial Future, <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent via-pink to-cyan italic font-drama pe-4">Simplified.</span>
           </h1>
           <p className="font-heading text-xl text-white/60 max-w-3xl mx-auto leading-relaxed">
             Most investing platforms give you tools without guidance or guidance without clarity. Prosper brings both together so you can learn faster, track everything in one place, and move forward with confidence supported by real advisors and intelligent education.
