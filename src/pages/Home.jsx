@@ -123,11 +123,11 @@ function Hero({ onOpenWaitlist }) {
       >
         <div className="hero-content max-w-4xl space-y-6 flex flex-col items-center text-center">
             <h1 className="flex flex-col items-center gap-2 relative">
-                <span className="font-heading font-bold text-3xl md:text-5xl lg:text-7xl text-white tracking-tight leading-none drop-shadow-sm">
-                  A Smarter Way to Build
+                <span className="font-heading font-bold text-4xl md:text-5xl lg:text-7xl text-white tracking-tight leading-none drop-shadow-sm">
+                  Build Wealth
                 </span>
                 <span className="font-drama italic text-5xl md:text-7xl lg:text-9xl text-accent leading-[0.9] drop-shadow-[0_0_30px_rgba(159,131,241,0.3)] pb-2 flex items-center justify-center text-center">
-                  Your Portfolio.
+                  From Your Pocket.
                 </span>
             </h1>
             <p className="text-white/70 font-heading text-lg md:text-2xl max-w-2xl font-light leading-relaxed mx-auto">
