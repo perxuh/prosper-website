@@ -40,8 +40,14 @@ export function LiquidButton({
   ...props
 }) {
   const Comp = asChild ? Slot : "button"
-  
-  // Custom neon glass themes mapping interpolating shadow and glow variables
+  const [isMobile, setIsMobile] = React.useState(false)
+
+  React.useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768)
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
   const shadowConfig = {
     cyan: "shadow-[0_0_15px_rgba(70,199,217,0.3),inset_3px_3px_2px_-2px_rgba(255,255,255,0.4),inset_0_0_15px_10px_rgba(70,199,217,0.1)] group-hover:shadow-[0_0_30px_rgba(70,199,217,0.6),inset_3px_3px_2px_-2px_rgba(255,255,255,0.6),inset_0_0_20px_10px_rgba(70,199,217,0.2)] bg-[#46C7D9]/10 group-hover:bg-[#46C7D9]/30",
     purple: "shadow-[0_0_15px_rgba(159,131,241,0.3),inset_3px_3px_2px_-2px_rgba(255,255,255,0.4),inset_0_0_15px_10px_rgba(159,131,241,0.1)] group-hover:shadow-[0_0_30px_rgba(159,131,241,0.6),inset_3px_3px_2px_-2px_rgba(255,255,255,0.6),inset_0_0_20px_10px_rgba(159,131,241,0.2)] bg-[#9F83F1]/10 group-hover:bg-[#9F83F1]/30",
@@ -74,7 +80,11 @@ export function LiquidButton({
         )} />
         <div
           className="absolute inset-0 isolate -z-10 overflow-hidden rounded-[inherit]"
-          style={{ backdropFilter: 'url("#container-glass")', WebkitBackdropFilter: 'url("#container-glass")' }}
+          style={{ 
+            backdropFilter: isMobile ? 'blur(8px)' : 'url("#container-glass")', 
+            WebkitBackdropFilter: isMobile ? 'blur(8px)' : 'url("#container-glass")',
+            willChange: 'backdrop-filter'
+          }}
         />
 
         <div className="pointer-events-none z-10 flex items-center justify-center gap-2 w-full mix-blend-plus-lighter">

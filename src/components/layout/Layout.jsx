@@ -12,6 +12,14 @@ function Navbar({ onOpenWaitlist }) {
   const location = useLocation();
   const [isScrolled, setIsScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   // Close menu on route change
   useEffect(() => {
@@ -56,7 +64,12 @@ function Navbar({ onOpenWaitlist }) {
           />
           <div
             className={`absolute inset-0 -z-10 overflow-hidden rounded-[inherit] transition-opacity duration-500 ${isScrolled ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
-            style={{ backdropFilter: 'url("#nav-glass")', WebkitBackdropFilter: 'url("#nav-glass")' }}
+            style={{ 
+              backdropFilter: isMobile ? 'blur(16px)' : 'url("#nav-glass")', 
+              WebkitBackdropFilter: isMobile ? 'blur(16px)' : 'url("#nav-glass")',
+              backgroundColor: isMobile ? 'rgba(26, 28, 37, 0.4)' : 'transparent',
+              willChange: 'backdrop-filter'
+            }}
           />
 
           <Link to="/" className="relative z-10 font-heading font-bold text-xl tracking-tight">Prosper</Link>
@@ -179,6 +192,17 @@ function Footer() {
 }
 
 function Noise() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  if (isMobile) return null;
+
   return (
     <svg className="noise-overlay" style={{
       position: 'fixed',
@@ -189,7 +213,8 @@ function Noise() {
       pointerEvents: 'none',
       zIndex: 9999,
       opacity: 0.05,
-      mixBlendMode: 'overlay'
+      mixBlendMode: 'overlay',
+      willChange: 'transform'
     }}>
       <filter id="noiseFilter">
         <feTurbulence type="fractalNoise" baseFrequency="0.6" numOctaves="3" stitchTiles="stitch" />

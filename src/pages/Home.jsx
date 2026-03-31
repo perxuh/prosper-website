@@ -14,7 +14,12 @@ function Hero({ onOpenWaitlist }) {
   const navigate = useNavigate();
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
   const containerRef = useRef(null);
+
+  useEffect(() => {
+    setIsTouchDevice('ontouchstart' in window || navigator.maxTouchPoints > 0);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
@@ -31,7 +36,7 @@ function Hero({ onOpenWaitlist }) {
   }, [isScrolled]);
 
   const handleMouseMove = (e) => {
-    if (!containerRef.current) return;
+    if (!containerRef.current || isTouchDevice) return;
     const rect = containerRef.current.getBoundingClientRect();
     const x = (e.clientX - rect.left - rect.width / 2) / rect.width;
     const y = (e.clientY - rect.top - rect.height / 2) / rect.height;
@@ -88,7 +93,8 @@ function Hero({ onOpenWaitlist }) {
         className="absolute inset-0 z-0 mix-blend-screen pointer-events-none"
         style={{
           transform: `translateX(${mousePos.x * -40}px) translateY(${mousePos.y * -40}px) translateZ(-100px)`,
-          transition: "transform 0.3s ease-out"
+          transition: "transform 0.3s ease-out",
+          willChange: isTouchDevice ? 'auto' : 'transform'
         }}
       >
         <div className="absolute top-1/4 left-1/4 w-[800px] h-[400px] bg-accent/20 rounded-full blur-[150px]"></div>
@@ -99,7 +105,8 @@ function Hero({ onOpenWaitlist }) {
         className="absolute inset-0 z-0 opacity-40 pointer-events-none"
         style={{
           transform: `translateX(${mousePos.x * -20}px) translateY(${mousePos.y * -20}px) translateZ(-50px)`,
-          transition: "transform 0.2s ease-out"
+          transition: "transform 0.2s ease-out",
+          willChange: isTouchDevice ? 'auto' : 'transform'
         }}
       >
         <div className="absolute top-1/3 right-1/4 w-48 h-48 border border-accent/30 rounded-full rotate-12 blur-[2px]" />
@@ -110,7 +117,8 @@ function Hero({ onOpenWaitlist }) {
         className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-12 pb-16 flex flex-col items-center justify-center h-full"
         style={{
           transform: `translateX(${mousePos.x * 10}px) translateY(${mousePos.y * 10}px) translateZ(50px)`,
-          transition: "transform 0.1s ease-out"
+          transition: "transform 0.1s ease-out",
+          willChange: isTouchDevice ? 'auto' : 'transform'
         }}
       >
         <div className="hero-content max-w-4xl space-y-6 flex flex-col items-center text-center">
@@ -167,7 +175,8 @@ function Hero({ onOpenWaitlist }) {
                   className="parallax-card cursor-pointer p-6 md:p-8 rounded-[2rem] border border-white/5 bg-[#14151B]/50 backdrop-blur-xl hover:bg-surface hover:border-white/10 transition-colors shadow-2xl relative overflow-hidden group flex flex-col items-start"
                   style={{
                     transform: `translateZ(${30 + i * 20}px)`,
-                    transformStyle: "preserve-3d"
+                    transformStyle: "preserve-3d",
+                    willChange: 'transform'
                   }}
                 >
                   <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-accent/20 to-transparent blur-2xl group-hover:from-accent/40 transition-colors duration-500"></div>
