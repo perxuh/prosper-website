@@ -186,8 +186,8 @@ function Hero({ onOpenWaitlist }) {
                     <div className="text-lg font-heading font-bold text-white relative z-10 tracking-wide">{item.title}</div>
                   </div>
                   
-                  {/* Smooth height expansion via CSS Grid */}
-                  <div className={`grid ${isScrolled ? 'grid-rows-[1fr]' : 'grid-rows-[0fr] group-hover:grid-rows-[1fr]'} transition-[grid-template-rows] duration-500 ease-out w-full`}>
+                  {/* Smooth height expansion via CSS Grid (Desktop only to prevent mobile scroll lag) */}
+                  <div className={`grid ${isTouchDevice ? 'grid-rows-[1fr]' : (isScrolled ? 'grid-rows-[1fr]' : 'grid-rows-[0fr] group-hover:grid-rows-[1fr]')} ${isTouchDevice ? '' : 'transition-[grid-template-rows] duration-500 ease-out'} w-full`}>
                     <div className="overflow-hidden">
                       <div className="text-sm font-heading text-white/60 leading-relaxed relative z-10 pt-3 pb-1 border-t border-white/5 mt-3">
                         {item.desc}
