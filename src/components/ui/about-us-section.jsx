@@ -118,7 +118,7 @@ export default function AboutUsSection() {
     <section
       id="about-section"
       ref={sectionRef}
-      className="w-full pt-8 pb-16 md:pt-12 md:pb-24 px-4 bg-transparent text-white overflow-hidden relative z-10"
+      className="w-full pt-6 pb-14 md:pt-10 md:pb-20 px-4 bg-transparent text-white overflow-hidden relative z-10"
     >
       {/* Decorative background elements */}
       <motion.div
@@ -216,6 +216,8 @@ export default function AboutUsSection() {
                 <img
                   src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2940&auto=format&fit=crop"
                   alt="Financial Dashboard Analytics"
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-full object-cover aspect-[4/5] opacity-90 mix-blend-screen grayscale-[20%]"
                 />
                 <motion.div

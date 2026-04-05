@@ -1,46 +1,61 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, lazy, Suspense } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useOutletContext, useNavigate, useLocation } from 'react-router-dom';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ArrowRight, MessageSquare, Brain, User, TrendingUp } from 'lucide-react';
+import { ArrowRight, Brain, User, TrendingUp } from 'lucide-react';
 import CircularTestimonials from '../components/ui/circular-testimonials';
 import AboutUsSection from '../components/ui/about-us-section';
 import { LiquidButton } from '../components/ui/liquid-glass-button';
+import ShaderBackground from '../components/ui/shader-background';
 
 gsap.registerPlugin(ScrollTrigger);
 
+const SPLINE_SCENE_URL =
+  'https://prod.spline.design/OyzN7pTHWpgWXmEy/scene.splinecode';
+
+const Spline = lazy(() => import('@splinetool/react-spline'));
+
+/** Non-interactive embed: no orbit / zoom / scroll hijack on the canvas. */
+function lockSplineScene(app) {
+  const c = app?.controls;
+  if (c && typeof c.enabled === 'boolean') c.enabled = false;
+  if (typeof app?.setZoom === 'function') {
+    app.setZoom(0.84);
+  }
+}
+
 function Hero({ onOpenWaitlist }) {
   const navigate = useNavigate();
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isTouchDevice, setIsTouchDevice] = useState(false);
+  const isTouchDevice = useRef(false);
   const containerRef = useRef(null);
+  const layer2Ref = useRef(null);
+  const layer3Ref = useRef(null);
+  const rafRef = useRef(null);
+  const lastMouseEvent = useRef(null);
 
   useEffect(() => {
-    setIsTouchDevice('ontouchstart' in window || navigator.maxTouchPoints > 0);
+    isTouchDevice.current = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
   }, []);
-
-  useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 20);
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  // Force GSAP to recalculate pin positions after the card expansion finishes
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      ScrollTrigger.refresh();
-    }, 550);
-    return () => clearTimeout(timer);
-  }, [isScrolled]);
 
   const handleMouseMove = (e) => {
-    if (!containerRef.current || isTouchDevice) return;
-    const rect = containerRef.current.getBoundingClientRect();
-    const x = (e.clientX - rect.left - rect.width / 2) / rect.width;
-    const y = (e.clientY - rect.top - rect.height / 2) / rect.height;
-    setMousePos({ x, y });
+    if (isTouchDevice.current) return;
+    lastMouseEvent.current = e;
+    if (rafRef.current) return;
+    rafRef.current = requestAnimationFrame(() => {
+      rafRef.current = null;
+      const ev = lastMouseEvent.current;
+      if (!containerRef.current || !ev) return;
+      const rect = containerRef.current.getBoundingClientRect();
+      const x = (ev.clientX - rect.left - rect.width / 2) / rect.width;
+      const y = (ev.clientY - rect.top - rect.height / 2) / rect.height;
+      if (layer2Ref.current) {
+        layer2Ref.current.style.transform = `translateX(${x * -20}px) translateY(${y * -20}px)`;
+      }
+      if (layer3Ref.current) {
+        layer3Ref.current.style.transform = `translateX(${x * 10}px) translateY(${y * 10}px)`;
+      }
+    });
   };
 
   useEffect(() => {
@@ -69,57 +84,34 @@ function Hero({ onOpenWaitlist }) {
     <section 
       ref={containerRef}
       onMouseMove={handleMouseMove}
-      className="relative min-h-[100dvh] w-full flex items-center justify-center pt-32 pb-12 md:pb-24 overflow-hidden bg-transparent"
+      className="relative w-full flex flex-col items-center pt-28 pb-10 md:pb-16 overflow-hidden bg-[#14151B] min-h-[100dvh]"
       style={{ perspective: "1000px" }}
     >
-      {/* Static Over-sized Video Canvas to prevent object-cover resize artifacts */}
-      <div className="absolute top-0 left-0 w-full h-[150vh] z-0 pointer-events-none overflow-hidden">
-        <video 
-          autoPlay 
-          loop 
-          muted 
-          playsInline
-          preload="none"
-          className="w-full h-full object-cover opacity-60 mix-blend-screen"
-        >
-          <source src="/space_background.mp4" type="video/mp4" />
-        </video>
+      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none select-none">
+        <ShaderBackground />
       </div>
 
-      {/* Dynamic Gradient Overlay glued exactly to Hero bounds for seamless transition */}
-      <div className="absolute inset-0 z-0 bg-gradient-to-t from-[#14151B] via-[#14151B]/60 to-transparent pointer-events-none"></div>
+      <div className="absolute inset-0 z-0 bg-gradient-to-t from-[#14151B] via-[#14151B]/45 to-[#14151B]/10 pointer-events-none" aria-hidden />
 
-      <div 
-        className="absolute inset-0 z-0 mix-blend-screen pointer-events-none"
-        style={{
-          transform: `translateX(${mousePos.x * -40}px) translateY(${mousePos.y * -40}px) translateZ(-100px)`,
-          transition: "transform 0.3s ease-out",
-          willChange: isTouchDevice ? 'auto' : 'transform'
-        }}
-      >
-        <div className="absolute top-1/4 left-1/4 w-[800px] h-[400px] bg-accent/20 rounded-full blur-[150px]"></div>
-        <div className="absolute top-1/2 right-1/4 w-[600px] h-[300px] bg-cyan/10 rounded-full blur-[120px]"></div>
+      {/* Static ambient glow — no willChange, no transform, no mix-blend-mode */}
+      <div className="absolute inset-0 z-0 pointer-events-none" aria-hidden>
+        <div className="absolute top-1/4 left-1/4 w-[600px] h-[300px] bg-accent/15 rounded-full blur-[120px]" />
+        <div className="absolute top-1/2 right-1/4 w-[400px] h-[200px] bg-cyan/8 rounded-full blur-[100px]" />
       </div>
 
-      <div 
-        className="absolute inset-0 z-0 opacity-40 pointer-events-none"
-        style={{
-          transform: `translateX(${mousePos.x * -20}px) translateY(${mousePos.y * -20}px) translateZ(-50px)`,
-          transition: "transform 0.2s ease-out",
-          willChange: isTouchDevice ? 'auto' : 'transform'
-        }}
+      <div
+        ref={layer2Ref}
+        className="absolute inset-0 z-0 opacity-25 pointer-events-none"
+        style={{ transition: "transform 0.2s ease-out", willChange: 'transform' }}
       >
         <div className="absolute top-1/3 right-1/4 w-48 h-48 border border-accent/30 rounded-full rotate-12 blur-[2px]" />
         <div className="absolute bottom-1/3 left-1/4 w-32 h-32 bg-pink/10 border border-pink/30 rounded-lg -rotate-12 blur-[1px]" />
       </div>
 
-      <div 
-        className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-12 pb-16 flex flex-col items-center justify-center h-full"
-        style={{
-          transform: `translateX(${mousePos.x * 10}px) translateY(${mousePos.y * 10}px) translateZ(50px)`,
-          transition: "transform 0.1s ease-out",
-          willChange: isTouchDevice ? 'auto' : 'transform'
-        }}
+      <div
+        ref={layer3Ref}
+        className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-12 pb-10 md:pb-12 flex flex-col items-center"
+        style={{ transition: "transform 0.1s ease-out", willChange: 'transform' }}
       >
         <div className="hero-content max-w-4xl space-y-6 flex flex-col items-center text-center">
             <h1 className="flex flex-col items-center gap-2 relative max-w-4xl mx-auto">
@@ -130,10 +122,7 @@ function Hero({ onOpenWaitlist }) {
                   From Your Pocket.
                 </span>
             </h1>
-            <p className="text-white/70 font-heading text-lg md:text-2xl max-w-2xl font-light leading-relaxed mx-auto">
-              Learn faster, track everything in one place, and grow your portfolio with real financial advisors and smart AI guiding every step.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 pt-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-4 pt-2 justify-center">
                 <LiquidButton colorMode="purple">
                   <svg viewBox="0 0 384 512" className="w-5 h-5 fill-current mr-1" aria-hidden="true">
                     <path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/>
@@ -176,7 +165,6 @@ function Hero({ onOpenWaitlist }) {
                   style={{
                     transform: `translateZ(${30 + i * 20}px)`,
                     transformStyle: "preserve-3d",
-                    willChange: 'transform'
                   }}
                 >
                   <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-accent/20 to-transparent blur-2xl group-hover:from-accent/40 transition-colors duration-500"></div>
@@ -185,14 +173,8 @@ function Hero({ onOpenWaitlist }) {
                     {item.icon}
                     <div className="text-lg font-heading font-bold text-white relative z-10 tracking-wide">{item.title}</div>
                   </div>
-                  
-                  {/* Smooth height expansion via CSS Grid (Desktop only to prevent mobile scroll lag) */}
-                  <div className={`grid ${isTouchDevice ? 'grid-rows-[1fr]' : (isScrolled ? 'grid-rows-[1fr]' : 'grid-rows-[0fr] group-hover:grid-rows-[1fr]')} ${isTouchDevice ? '' : 'transition-[grid-template-rows] duration-500 ease-out'} w-full`}>
-                    <div className="overflow-hidden">
-                      <div className="text-sm font-heading text-white/60 leading-relaxed relative z-10 pt-3 pb-1 border-t border-white/5 mt-3">
-                        {item.desc}
-                      </div>
-                    </div>
+                  <div className="text-sm font-heading text-white/60 leading-relaxed relative z-10 pt-3 pb-1 border-t border-white/5 mt-3 w-full">
+                    {item.desc}
                   </div>
                 </div>
               ))}
@@ -206,236 +188,210 @@ function Hero({ onOpenWaitlist }) {
 function AppWalkthrough() {
   const navigate = useNavigate();
   const sectionRef = useRef(null);
-  const phoneContainerRef = useRef(null);
-  const phoneRef = useRef(null);
-  const screenContentRef = useRef(null);
-  const text1ContainerRef = useRef(null);
-  const text1Ref = useRef(null);
-  const text2Ref = useRef(null);
-  const text3Ref = useRef(null);
-  
+  const [splineReady, setSplineReady] = useState(false);
+
+  // Only mount the Spline scene once the section is near the viewport.
+  // This prevents the heavy scene file from competing with the hero Spline on load.
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setSplineReady(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: '200px' }
+    );
+    if (sectionRef.current) observer.observe(sectionRef.current);
+    return () => observer.disconnect();
+  }, []);
+
   useEffect(() => {
     let ctx = gsap.context(() => {
-      gsap.fromTo(phoneRef.current, 
-        { rotateX: 60, rotateY: -30, rotateZ: 20, scale: 0.7, y: 100 },
-        { 
-          rotateX: 0, rotateY: 0, rotateZ: 0, scale: 1, y: 0, 
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: 'top 80%',
-            end: 'top top',
-            scrub: 1,
-          }
-        }
-      );
-
-      gsap.fromTo(text1ContainerRef.current,
-        { autoAlpha: 0, y: 20 },
-        { 
-          autoAlpha: 1, y: 0, 
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: 'top 50%',
-            end: 'top top',
-            scrub: 1,
-          }
-        }
-      );
-
-      const tl = gsap.timeline({
+      gsap.from('.walkthrough-intro', {
+        y: 24,
+        opacity: 0,
+        duration: 0.85,
+        ease: 'power2.out',
         scrollTrigger: {
           trigger: sectionRef.current,
-          start: 'top top',
-          end: '+=2000',
-          pin: true,
-          scrub: 1,
-          anticipatePin: 1,
-        }
+          start: 'top 80%',
+        },
       });
-      
-      tl.to({}, { duration: 0.5 }); 
-      tl.fromTo(text1Ref.current, { autoAlpha: 1, y: 0 }, { autoAlpha: 0, y: -20, duration: 0.3 }); 
-      tl.to(screenContentRef.current, { y: '-33.33%', duration: 1, ease: 'power2.inOut' }, "<"); 
-      tl.fromTo(text2Ref.current, { autoAlpha: 0, y: 20 }, { autoAlpha: 1, y: 0, duration: 0.5 }, "-=0.6"); 
-      tl.to({}, { duration: 0.5 });
-      tl.fromTo(text2Ref.current, { autoAlpha: 1, y: 0 }, { autoAlpha: 0, y: -20, duration: 0.3 });
-      tl.to(screenContentRef.current, { y: '-66.66%', duration: 1, ease: 'power2.inOut' }, "<");
-      tl.fromTo(text3Ref.current, { autoAlpha: 0, y: 20 }, { autoAlpha: 1, y: 0, duration: 0.5 }, "-=0.6");
-      tl.to({}, { duration: 0.5 });
-      
-      tl.fromTo(text3Ref.current, { autoAlpha: 1, y: 0 }, { autoAlpha: 0, y: -40, duration: 0.3 }, `exit`);
-      tl.to(phoneContainerRef.current, {
-        rotateX: -45,
-        rotateY: 15,
-        scale: 0.8,
-        y: -100,
-        duration: 0.5,
-        ease: 'power2.inOut'
-      }, `exit`);
-      tl.to(phoneContainerRef.current.children, {
+      gsap.from('.walkthrough-benefit-item', {
+        x: -16,
         opacity: 0,
-        boxShadow: 'none',
-        duration: 0.5,
-        ease: 'power2.inOut'
-      }, `exit`);
-      
+        duration: 0.55,
+        stagger: 0.1,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: 'top 76%',
+        },
+      });
+      gsap.from('.walkthrough-cta', {
+        y: 18,
+        opacity: 0,
+        duration: 0.75,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: 'top 76%',
+        },
+      });
+      gsap.from('.walkthrough-spline-wrap', {
+        y: 32,
+        opacity: 0,
+        duration: 0.95,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: 'top 78%',
+        },
+      });
     }, sectionRef);
     return () => ctx.revert();
   }, []);
 
   return (
-    <>
-      {/* ── MOBILE: static stacked cards (no pin, no GSAP scrub) ── */}
-      <section className="md:hidden w-full px-6 pt-8 pb-16 bg-transparent relative z-20">
-        <div className="max-w-lg mx-auto space-y-8">
-          <div className="text-center mb-12">
+    <section
+      ref={sectionRef}
+      id="app-walkthrough"
+      className="w-full px-6 pt-6 pb-12 md:pt-14 md:pb-16 bg-transparent relative z-20"
+    >
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-[#14151B]/40 to-transparent opacity-80" aria-hidden />
+      <div className="max-w-6xl w-full mx-auto flex flex-col md:flex-row md:items-stretch gap-10 md:gap-12 lg:gap-16 relative">
+        <div className="md:w-[42%] lg:w-[38%] flex flex-col md:justify-center text-left">
+          <div className="walkthrough-intro text-center md:text-left">
             <div className="inline-block text-[#9F83F1] text-xs uppercase tracking-widest font-bold mb-3 bg-[#9F83F1]/10 px-3 py-1 rounded-full border border-[#9F83F1]/20">
               Inside the App
             </div>
-            <h2 className="font-heading font-bold text-3xl text-white">Everything You Need</h2>
+            <h2 className="font-heading font-bold text-3xl md:text-4xl text-white tracking-tight leading-snug">
+              Built With Advisors.{' '}
+              <span className="text-accent">Designed For You.</span>
+            </h2>
+            <p className="mt-3 font-heading text-white/50 text-sm md:text-base max-w-md mx-auto md:mx-0 leading-relaxed">
+              See your real retirement outlook instantly and move forward with a clearer understanding of where you stand today and what steps can help you build long term wealth.
+            </p>
           </div>
-          {[
-            {
-              title: 'Dashboard',
-              desc: 'Understand your financial position instantly. Visual tools help you monitor growth, transfers, and account activity without complexity.',
-              img: '/app_dashboard.png',
-              color: 'from-[#4ADE80]/20',
-              hash: 'portfolio-tracking'
-            },
-            {
-              title: 'AI Powered Education',
-              desc: 'Ask questions anytime. Get simple answers about Roth IRAs, 401ks, diversification, and long term investing without needing prior experience.',
-              img: '/app_education.png',
-              color: 'from-cyan/20',
-              hash: 'ai-education'
-            },
-            {
-              title: 'Human Advisors',
-              desc: 'Move from learning to action with guidance from professionals who help you make informed financial decisions with structure and direction.',
-              img: '/app_advisor.png',
-              color: 'from-accent/20',
-              hash: 'human-advisors'
-            },
-          ].map((item, i) => (
-            <div key={i} className="rounded-3xl border border-white/10 bg-[#1A1B23]/60 backdrop-blur-xl overflow-hidden shadow-2xl">
-              <div className={`h-52 relative bg-gradient-to-br ${item.color} to-transparent`}>
-                <img src={item.img} alt={item.title} loading="lazy" className="absolute inset-0 w-full h-full object-cover mix-blend-screen opacity-90" />
-              </div>
-              <div className="p-6">
-                <h3 className="font-heading font-bold text-xl text-white mb-2">{item.title}</h3>
-                <p className="font-heading text-white/60 text-sm leading-relaxed mb-4">{item.desc}</p>
-                <button
-                  onClick={() => navigate(`/features#${item.hash}`)}
-                  className="text-[#9F83F1] font-heading font-semibold text-sm flex items-center gap-2 hover:text-white transition-colors"
+
+          <ul className="walkthrough-benefits mt-6 space-y-3.5 font-heading text-sm md:text-base text-white/65 max-w-md mx-auto md:mx-0 leading-relaxed list-none text-left">
+            {[
+              'See where you stand for retirement in seconds',
+              'Follow strategies built by real fiduciary advisors',
+              'Track all your investments in one place',
+              'Understand your finances with your AI assistant',
+              'Know what to do next with a clearer plan',
+            ].map((line, i) => (
+              <li
+                key={i}
+                className="walkthrough-benefit-item group flex gap-3.5 items-start"
+              >
+                <span
+                  className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/[0.05] text-accent shadow-[0_0_20px_rgba(159,131,241,0.12)] transition-all duration-300 group-hover:border-accent/35 group-hover:bg-accent/10 group-hover:text-cyan group-hover:shadow-[0_0_24px_rgba(70,199,217,0.2)]"
+                  aria-hidden
                 >
-                  Learn More <ArrowRight size={16} />
-                </button>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
+                  <ArrowRight
+                    size={15}
+                    className="transition-transform duration-300 group-hover:translate-x-0.5"
+                    strokeWidth={2.5}
+                  />
+                </span>
+                <span className="pt-1">{line}</span>
+              </li>
+            ))}
+          </ul>
 
-      {/* ── DESKTOP: full GSAP pinned animation ── */}
-      <section ref={sectionRef} id="app-walkthrough" className="hidden md:flex h-screen w-full bg-transparent relative overflow-hidden items-center justify-center p-6 z-20 pt-24">
-        <div className="max-w-6xl w-full mx-auto flex flex-row items-center justify-between gap-12 relative z-10 px-12">
-          <div className="w-1/2 relative h-96 flex items-center justify-center text-left">
-            <div ref={text1ContainerRef} className="absolute inset-x-0 opacity-0 translate-y-10">
-              <div ref={text1Ref} className="flex flex-col items-start text-left">
-                <h3 className="font-heading font-bold text-3xl text-white mb-4">Dashboard</h3>
-                <p className="font-heading text-white/70 text-xl leading-relaxed mb-8">Understand your financial position instantly. Visual tools help you monitor growth, transfers, and account activity without complexity.</p>
-                <LiquidButton colorMode="purple" onClick={() => navigate('/features#portfolio-tracking')}>
-                  Learn More <ArrowRight size={20} />
-                </LiquidButton>
-              </div>
-            </div>
-            <div ref={text2Ref} className="absolute inset-x-0 opacity-0 translate-y-10 flex flex-col items-start text-left">
-              <h3 className="font-heading font-bold text-3xl text-white mb-4">AI Powered Education</h3>
-              <p className="font-heading text-white/70 text-xl leading-relaxed mb-8">Ask questions anytime. Get simple answers about Roth IRAs, 401ks, diversification, and long term investing without needing prior experience.</p>
-              <LiquidButton colorMode="purple" onClick={() => navigate('/features#ai-education')}>
-                Learn More <ArrowRight size={20} />
-              </LiquidButton>
-            </div>
-            <div ref={text3Ref} className="absolute inset-x-0 opacity-0 translate-y-10 flex flex-col items-start text-left">
-              <h3 className="font-heading font-bold text-3xl text-white mb-4">Human Advisors</h3>
-              <p className="font-heading text-white/70 text-xl leading-relaxed mb-8">Move from learning to action with guidance from professionals who help you make informed financial decisions with structure and direction.</p>
-              <LiquidButton colorMode="purple" onClick={() => navigate('/features#human-advisors')}>
-                Learn More <ArrowRight size={20} />
-              </LiquidButton>
-            </div>
-          </div>
-
-          <div className="w-1/2 flex justify-center perspective-[2000px]">
-            <div ref={phoneContainerRef} className="iphone-container relative">
-              <div ref={phoneRef} className="iphone-body relative z-10 transition-shadow bg-[#1B1B22] border border-white/5 ring-4 ring-[#14151B] shadow-2xl shadow-black/50">
-                <div className="iphone-dynamic-island shadow-md flex items-center justify-center">
-                   <div className="w-2 h-2 rounded-full bg-cyan/80 ml-auto mr-4 shadow-[0_0_10px_#46C7D9]"></div>
-                </div>
-                <div className="iphone-screen bg-[#14151B] border-[4px] border-[#0A0A0D]">
-                  <div ref={screenContentRef} className="w-full h-[300%] flex flex-col pt-0 mix-blend-screen opacity-90 contrast-125">
-                    <div className="h-1/3 w-full shrink-0 relative"><img src="/app_dashboard.png" className="absolute inset-0 w-full h-full object-cover" alt="Dashboard" /></div>
-                    <div className="h-1/3 w-full shrink-0 relative"><img src="/app_education.png" className="absolute inset-0 w-full h-full object-cover" alt="Education" /></div>
-                    <div className="h-1/3 w-full shrink-0 relative"><img src="/app_advisor.png" className="absolute inset-0 w-full h-full object-cover" alt="Advisor" /></div>
-                  </div>
-                </div>
-              </div>
-            </div>
+          <div className="walkthrough-cta mt-8 flex justify-center md:justify-start">
+            <LiquidButton
+              colorMode="purple"
+              className="w-full sm:w-auto"
+              onClick={() => navigate('/features')}
+            >
+              Explore all features <ArrowRight size={18} />
+            </LiquidButton>
           </div>
         </div>
-      </section>
-    </>
+
+        <div className="md:flex-1 min-h-[min(62vh,540px)] h-[min(62vh,540px)] md:h-auto md:min-h-[min(88vh,800px)] relative overflow-visible bg-transparent walkthrough-spline-wrap pointer-events-none select-none py-2 md:py-3">
+          {splineReady && (
+            <Suspense
+              fallback={
+                <div className="absolute inset-0 flex items-center justify-center bg-transparent">
+                  <div className="h-10 w-10 rounded-full border-2 border-accent/30 border-t-accent animate-spin" aria-hidden />
+                  <span className="sr-only">Loading 3D scene</span>
+                </div>
+              }
+            >
+              <Spline
+                scene={SPLINE_SCENE_URL}
+                onLoad={lockSplineScene}
+                className="!absolute inset-0 w-full h-full pointer-events-none"
+                style={{ background: 'transparent' }}
+              />
+            </Suspense>
+          )}
+        </div>
+      </div>
+    </section>
   );
 }
 
 function TiltCard({ children, className }) {
   const cardRef = useRef(null);
-  const [isTouchDevice, setIsTouchDevice] = useState(false);
+  const isTouchDevice = useRef(false);
+  const rafRef = useRef(null);
+  const lastMouseEvent = useRef(null);
 
   useEffect(() => {
-    setIsTouchDevice('ontouchstart' in window || navigator.maxTouchPoints > 0);
+    isTouchDevice.current = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
   }, []);
 
   const handleMouseMove = (e) => {
-    if (!cardRef.current || isTouchDevice) return;
-    const rect = cardRef.current.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-    
-    const rotateX = ((y - centerY) / centerY) * -12; 
-    const rotateY = ((x - centerX) / centerX) * 12;
-    
-    gsap.to(cardRef.current, {
-      rotateX: rotateX,
-      rotateY: rotateY,
-      y: -16,
-      duration: 0.4,
-      ease: "power2.out",
-      transformPerspective: 1000,
+    if (!cardRef.current || isTouchDevice.current) return;
+    lastMouseEvent.current = e;
+    if (rafRef.current) return;
+    rafRef.current = requestAnimationFrame(() => {
+      rafRef.current = null;
+      const ev = lastMouseEvent.current;
+      if (!cardRef.current || !ev) return;
+      const rect = cardRef.current.getBoundingClientRect();
+      const x = ev.clientX - rect.left;
+      const y = ev.clientY - rect.top;
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+      gsap.to(cardRef.current, {
+        rotateX: ((y - centerY) / centerY) * -12,
+        rotateY: ((x - centerX) / centerX) * 12,
+        y: -16,
+        duration: 0.4,
+        ease: 'power2.out',
+        transformPerspective: 1000,
+        overwrite: 'auto',
+      });
     });
   };
 
   const handleMouseLeave = () => {
-    if (!cardRef.current || isTouchDevice) return;
+    if (!cardRef.current || isTouchDevice.current) return;
+    if (rafRef.current) { cancelAnimationFrame(rafRef.current); rafRef.current = null; }
     gsap.to(cardRef.current, {
       rotateX: 0,
       rotateY: 0,
       y: 0,
       duration: 0.7,
-      ease: "elastic.out(1, 0.5)"
+      ease: 'elastic.out(1, 0.5)',
+      overwrite: 'auto',
     });
   };
 
   return (
-    <div 
-      ref={cardRef} 
+    <div
+      ref={cardRef}
       className={className}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      style={{ transformStyle: 'preserve-3d', willChange: isTouchDevice ? 'auto' : 'transform' }}
+      style={{ transformStyle: 'preserve-3d', willChange: 'transform' }}
     >
       {children}
     </div>
@@ -447,22 +403,29 @@ function PricingTiers({ onOpenWaitlist }) {
 
   useEffect(() => {
     let ctx = gsap.context(() => {
-      gsap.from(".pricing-header", {
-        scrollTrigger: { trigger: containerRef.current, start: "top 80%" },
-        y: 40, opacity: 0, duration: 0.8, ease: "power3.out"
+      gsap.from('.pricing-header', {
+        scrollTrigger: { trigger: containerRef.current, start: 'top 82%' },
+        y: 28,
+        opacity: 0,
+        duration: 0.75,
+        ease: 'power2.out',
       });
-      gsap.from(".pricing-card-wrapper", {
-        scrollTrigger: { trigger: containerRef.current, start: "top 75%" },
-        y: 120, opacity: 0, stagger: 0.25, duration: 1.5, ease: "power2.out"
+      gsap.from('.pricing-card-wrapper', {
+        scrollTrigger: { trigger: containerRef.current, start: 'top 78%' },
+        y: 48,
+        opacity: 0,
+        stagger: 0.12,
+        duration: 0.85,
+        ease: 'power2.out',
       });
     }, containerRef);
     return () => ctx.revert();
   }, []);
 
   return (
-    <section ref={containerRef} id="pricing" className="py-16 md:py-32 px-6 bg-transparent relative z-10 overflow-hidden">
+    <section ref={containerRef} id="pricing" className="py-14 md:py-24 px-6 bg-transparent relative z-10 overflow-hidden">
       <div className="max-w-7xl mx-auto relative z-10">
-        <div className="text-center mb-12 md:mb-24 pricing-header">
+        <div className="text-center mb-10 md:mb-16 pricing-header">
           <h2 className="font-heading font-bold text-4xl text-white">Subscription Tiers</h2>
           <p className="font-heading text-white/50 mt-4 text-lg">Choose the right level of support for your financial journey.</p>
         </div>
@@ -530,15 +493,15 @@ function Testimonials() {
   useEffect(() => {
     let ctx = gsap.context(() => {
       gsap.from(containerRef.current, {
-        y: 150,
+        y: 36,
         opacity: 0,
-        duration: 1.2,
-        ease: "power3.out",
+        duration: 0.85,
+        ease: 'power2.out',
         scrollTrigger: {
           trigger: containerRef.current,
-          start: "top 80%", 
-          toggleActions: "play none none reverse"
-        }
+          start: 'top 88%',
+          toggleActions: 'play none none reverse',
+        },
       });
     }, containerRef);
     return () => ctx.revert();
@@ -566,9 +529,16 @@ function Testimonials() {
   ];
 
   return (
-    <section id="testimonials" ref={containerRef} className="relative w-full flex flex-col items-center justify-center -mt-12 md:-mt-48 pb-8 pt-8 md:pb-12 md:pt-12 px-6 lg:px-24 bg-transparent z-10 overflow-hidden transform-gpu">
-      <div className="text-center mb-8 md:mb-16 relative z-20">
-        <h2 className="font-heading text-white text-4xl md:text-6xl font-bold tracking-tight">Member Experience</h2>
+    <section
+      id="testimonials"
+      ref={containerRef}
+      className="relative w-full flex flex-col items-center justify-center -mt-2 md:-mt-4 pb-10 pt-6 md:pb-14 md:pt-10 px-6 lg:px-24 bg-transparent z-10 overflow-hidden transform-gpu"
+    >
+      <div className="text-center mb-8 md:mb-12 relative z-20">
+        <h2 className="font-heading text-white text-4xl md:text-6xl font-bold tracking-tight leading-snug">
+          Real People.{' '}
+          <span className="text-accent">Real Results.</span>
+        </h2>
       </div>
       <CircularTestimonials
         testimonials={testimonials}

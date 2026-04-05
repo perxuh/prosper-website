@@ -129,10 +129,12 @@ export const CircularTestimonials = ({
               {/* Image Top Half */}
               <div className="h-[50%] w-full shrink-0 relative overflow-hidden rounded-t-[2rem]">
                 <div className="absolute inset-0 bg-gradient-to-t from-[#1A1B23]/90 via-[#1A1B23]/20 to-transparent z-10" />
-                <img 
-                  src={testimonial.src} 
-                  alt={testimonial.name} 
-                  className={`w-full h-full object-cover object-[center_20%] transition-transform duration-1000 ${isActive ? 'scale-105 grayscale-0' : 'grayscale-[60%] scale-100'}`} 
+                <img
+                  src={testimonial.src}
+                  alt={testimonial.name}
+                  loading="lazy"
+                  decoding="async"
+                  className={`w-full h-full object-cover object-[center_20%] transition-transform duration-1000 ${isActive ? 'scale-105 grayscale-0' : 'grayscale-[60%] scale-100'}`}
                 />
               </div>
               
