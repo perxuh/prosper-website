@@ -333,7 +333,7 @@ function Hero({ onOpenWaitlist }) {
       <div style={{ position: 'absolute', top: '-5%', right: '5%', width: 800, height: 800, background: 'radial-gradient(ellipse at center, rgba(43,43,170,0.14) 0%, transparent 60%)', pointerEvents: 'none' }} />
       <div style={{ position: 'absolute', bottom: '5%', left: '15%', width: 500, height: 400, background: 'radial-gradient(ellipse at center, rgba(64,64,200,0.06) 0%, transparent 70%)', pointerEvents: 'none' }} />
 
-      <div style={{ maxWidth: 1280, margin: '0 auto', width: '100%', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 60, alignItems: 'center', position: 'relative', zIndex: 1 }}>
+      <div className="nh-grid" style={{ maxWidth: 1280, margin: '0 auto', width: '100%', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 60, alignItems: 'center', position: 'relative', zIndex: 1 }}>
         {/* LEFT */}
         <div className="nh-left" style={{ padding: '60px 0' }}>
           <div style={{ fontFamily: "Geist, sans-serif", display: 'inline-flex', alignItems: 'center', gap: 8, padding: '6px 14px', background: ACCENT_DIM, border: `1px solid ${ACCENT_BORDER}`, borderRadius: 100, fontSize: 12, fontWeight: 600, color: ACCENT_BRIGHT, letterSpacing: '0.4px', marginBottom: 28 }}>
@@ -341,16 +341,16 @@ function Hero({ onOpenWaitlist }) {
             Now available on iOS & Android
           </div>
 
-          <h1 style={{ fontFamily: "Geist, sans-serif", fontSize: 'clamp(32px, 5.5vw, 72px)', fontWeight: 800, lineHeight: 1.08, letterSpacing: '-1.8px', marginBottom: 28, color: TEXT }}>
+          <h1 style={{ fontFamily: "Geist, sans-serif", fontSize: 'clamp(36px, 5.5vw, 72px)', fontWeight: 800, lineHeight: 1.08, letterSpacing: '-1.8px', marginBottom: 28, color: TEXT }}>
             Your Finances.{' '}
             <span style={{ color: ACCENT, display: 'block' }}>Real Guidance.</span>
           </h1>
 
-          <p style={{ fontFamily: "Geist, sans-serif", fontSize: 16, lineHeight: 1.75, color: MUTED, maxWidth: 420, marginBottom: 40, fontWeight: 400 }}>
+          <p className="nh-sub" style={{ fontFamily: "Geist, sans-serif", fontSize: 16, lineHeight: 1.75, color: MUTED, maxWidth: 420, marginBottom: 40, fontWeight: 400 }}>
             Message a real advisor, track every account, and build a plan that actually fits your life.
           </p>
 
-          <div style={{ display: 'flex', gap: 12, marginBottom: 48, flexWrap: 'wrap' }}>
+          <div className="hero-store-btns" style={{ display: 'flex', gap: 12, marginBottom: 48, flexWrap: 'wrap' }}>
             {[
               { label: 'App Store', sub: 'Available on the', icon: 'M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98l-.09.06c-.22.14-2.2 1.3-2.18 3.87.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.35 2.61M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z' },
               { label: 'Google Play', sub: 'GET IT ON', icon: 'M3.18 23.76c.3.17.64.22.98.14l12.09-6.98-2.55-2.55-10.52 9.39zM.48 1.9A1.74 1.74 0 000 3.13v17.74c0 .49.18.93.48 1.23l.07.06 9.94-9.94v-.23L.55 1.84l-.07.06zm20.28 8.35-2.54-1.47-2.85 2.85 2.85 2.85 2.56-1.48c.73-.42.73-1.11-.02-1.75zm-9.5 9.75L2.17 11.41l2.56-2.56 10.52 9.39-2.99 1.76.01-.01z' },
@@ -365,7 +365,7 @@ function Hero({ onOpenWaitlist }) {
             ))}
           </div>
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
+          <div className="hero-users-row" style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
             <div style={{ display: 'flex' }}>
               {['A', 'B', 'C', 'D'].map((l, i) => (
                 <div key={l} style={{ width: 36, height: 36, borderRadius: '50%', border: `2px solid ${BG}`, marginLeft: i === 0 ? 0 : -10, fontSize: 13, fontWeight: 700, display: 'flex', alignItems: 'center', justifyContent: 'center', background: ['#1e1e6e', '#191966', '#16155a', '#1a1970'][i], color: ACCENT_BRIGHT }}>{l}</div>
@@ -478,6 +478,27 @@ function Hero({ onOpenWaitlist }) {
         </div>
       </div>
 
+      {/* Mobile-only phone mockup */}
+      <div className="nh-phone-mobile" style={{ display: 'none', justifyContent: 'center', width: '100%', paddingBottom: 40, position: 'relative', zIndex: 1 }}>
+        <div className="nh-phone-mobile-inner" style={{ position: 'relative' }}>
+          <div style={{
+            width: 260, height: 556,
+            background: 'linear-gradient(160deg, #2a2a2e 0%, #1a1a1e 40%, #111114 100%)',
+            borderRadius: 44, position: 'relative', overflow: 'visible',
+            boxShadow: '0 0 0 2px #8a8a9a, 0 0 0 3.5px #6a6a7a, 0 0 0 5px #4a4a58, 4px 8px 0 3px #3a3a48, 0 30px 70px rgba(0,0,0,0.8)',
+          }}>
+            <div style={{ position: 'absolute', inset: 0, borderRadius: 44, background: 'linear-gradient(135deg, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0.06) 30%, transparent 60%, rgba(0,0,0,0.15) 100%)', pointerEvents: 'none', zIndex: 30 }} />
+            <div style={{ position: 'absolute', inset: 5, borderRadius: 38, background: '#000', zIndex: 0 }} />
+            <div style={{ position: 'absolute', top: 16, left: '50%', transform: 'translateX(-50%)', width: 86, height: 26, background: '#000', borderRadius: 18, zIndex: 20 }} />
+            <div style={{ position: 'absolute', inset: 5, overflow: 'hidden', borderRadius: 38, zIndex: 10 }}>
+              <div style={{ width: 375, height: 812, transform: 'scale(0.667)', transformOrigin: 'top left', position: 'absolute', top: 0, left: 0 }}>
+                <PhoneHomeScreen />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <style>{`
         .hero-badge-dot {
           width: 6px; height: 6px;
@@ -490,13 +511,36 @@ function Hero({ onOpenWaitlist }) {
           50% { opacity: 0.4; }
         }
         @media (max-width: 900px) {
+          .nh-section {
+            padding: 80px 24px 0 !important;
+            min-height: auto !important;
+            align-items: flex-start !important;
+            flex-direction: column !important;
+          }
+          .nh-grid { grid-template-columns: 1fr !important; }
           .nh-right { display: none !important; }
-          .nh-left { padding: 40px 0 !important; }
-          .nh-section { padding: 80px 28px 48px !important; }
+          .nh-left {
+            padding: 16px 0 24px !important;
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+            text-align: center !important;
+          }
+          .nh-sub { max-width: 100% !important; }
+          .hero-store-btns { justify-content: center !important; }
+          .hero-users-row { justify-content: center !important; }
+          .nh-phone-mobile { display: flex !important; }
         }
         @media (max-width: 640px) {
-          .nh-section { padding: 80px 20px 40px !important; }
-          .nh-left { padding: 24px 0 !important; }
+          .nh-section { padding: 76px 20px 0 !important; }
+          .nh-left { padding: 10px 0 20px !important; }
+        }
+        @media (max-width: 380px) {
+          .nh-phone-mobile-inner {
+            transform: scale(0.85);
+            transform-origin: top center;
+            margin-bottom: -48px;
+          }
         }
       `}</style>
     </section>
