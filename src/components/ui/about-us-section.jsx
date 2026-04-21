@@ -668,7 +668,7 @@ function MobileAI() {
 // ── Device Frames ──────────────────────────────────────────
 function BrowserFrame({ children }) {
   return (
-    <div style={{ width: 680, borderRadius: 14, overflow: 'hidden', boxShadow: '0 32px 80px rgba(0,0,0,0.55), 0 0 0 1px rgba(255,255,255,0.07)', flexShrink: 0 }}>
+    <div className="about-browser-wrap" style={{ width: 680, borderRadius: 14, overflow: 'hidden', boxShadow: '0 32px 80px rgba(0,0,0,0.55), 0 0 0 1px rgba(255,255,255,0.07)', flexShrink: 0 }}>
       <div style={{ background: '#1C1C28', padding: '10px 14px', display: 'flex', alignItems: 'center', gap: 10 }}>
         <div style={{ display: 'flex', gap: 6 }}>
           {['#FF5F57','#FFBD2E','#28C840'].map(c => <div key={c} style={{ width: 11, height: 11, borderRadius: '50%', background: c }}/>)}
@@ -687,7 +687,7 @@ function BrowserFrame({ children }) {
 
 function PhoneFrame({ children }) {
   return (
-    <div style={{ width: 240, background: '#18181E', borderRadius: 40, padding: '10px 8px', boxShadow: '0 32px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.08)', flexShrink: 0, alignSelf: 'flex-end', marginBottom: 24, position: 'relative' }}>
+    <div className="about-phone-wrap" style={{ width: 240, background: '#18181E', borderRadius: 40, padding: '10px 8px', boxShadow: '0 32px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.08)', flexShrink: 0, alignSelf: 'flex-end', marginBottom: 24, position: 'relative' }}>
       <div style={{ position: 'absolute', left: -3, top: 110, width: 3, height: 28, background: '#333', borderRadius: '2px 0 0 2px' }}/>
       <div style={{ position: 'absolute', left: -3, top: 148, width: 3, height: 44, background: '#333', borderRadius: '2px 0 0 2px' }}/>
       <div style={{ position: 'absolute', right: -3, top: 160, width: 3, height: 60, background: '#333', borderRadius: '0 2px 2px 0' }}/>
@@ -724,7 +724,7 @@ export default function AboutUsSection() {
   }
 
   return (
-    <section className="w-full bg-transparent text-white" style={{ padding: '90px 24px 100px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+    <section className="w-full bg-transparent text-white" style={{ padding: 'clamp(56px, 9vw, 90px) 20px clamp(56px, 9vw, 100px)', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
       {/* Headline */}
       <AnimatePresence mode="wait">
         <motion.h2
@@ -782,6 +782,7 @@ export default function AboutUsSection() {
       <AnimatePresence mode="wait">
         <motion.div
           key={animKey}
+          className="about-mockup-stage"
           initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -10 }}
@@ -792,6 +793,23 @@ export default function AboutUsSection() {
           <PhoneFrame>{active.mobile}</PhoneFrame>
         </motion.div>
       </AnimatePresence>
+
+      <style>{`
+        @media (max-width: 767px) {
+          .about-mockup-stage {
+            flex-direction: column !important;
+            align-items: center !important;
+          }
+          .about-browser-wrap {
+            display: none !important;
+          }
+          .about-phone-wrap {
+            align-self: center !important;
+            margin-bottom: 0 !important;
+            width: min(240px, calc(100vw - 60px)) !important;
+          }
+        }
+      `}</style>
     </section>
   )
 }

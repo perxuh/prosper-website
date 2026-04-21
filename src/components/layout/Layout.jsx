@@ -228,7 +228,7 @@ export default function Layout() {
   const handleOpenWaitlist = () => setWaitlistOpen(true);
 
   return (
-    <div className="min-h-screen relative flex flex-col selection:bg-accent selection:text-white bg-[#0a0d14]">
+    <div className="min-h-screen relative flex flex-col selection:bg-accent selection:text-white bg-[#0a0d14] overflow-x-hidden">
       <Noise />
       <Navbar onOpenWaitlist={handleOpenWaitlist} />
       

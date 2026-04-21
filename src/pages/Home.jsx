@@ -670,7 +670,7 @@ function AppWalkthrough() {
         <div className="learn-phone-mobile-wrap">
           <LearnPhoneMockup />
         </div>
-        <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 gap-3 w-full max-w-sm">
+        <div className="grid grid-cols-2 gap-3 w-full max-w-sm">
           {[...LEARN_LEFT, ...LEARN_RIGHT].map((mod) => (
             <div key={mod.id} className="flex flex-col gap-2 p-4 rounded-2xl bg-white/5 border border-white/10">
               <div style={{ width: 32, height: 32, borderRadius: 10, background: `${ACCENT}18`, border: `1px solid ${ACCENT}40`, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -922,7 +922,7 @@ function AdvisorAccessVisual({ inView }) {
         </div>
       </div>
       {/* Access badge row */}
-      <div style={{ display: 'flex', gap: 6, marginTop: 12, justifyContent: 'center' }}>
+      <div style={{ display: 'flex', gap: 6, marginTop: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
         {['Advisor verified', 'No third-party access', 'Session logged'].map(t => (
           <div key={t} style={{ fontSize: 9, fontWeight: 700, color: 'rgba(43,43,170,0.8)', background: 'rgba(43,43,170,0.1)', border: '1px solid rgba(43,43,170,0.2)', borderRadius: 20, padding: '3px 8px' }}>{t}</div>
         ))}
@@ -1030,7 +1030,7 @@ function SecureUploadSection() {
       </div>
 
       {/* ── Large cards ── */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: 14, width: '100%', maxWidth: 920, marginBottom: 14, animation: inView ? 'secFadeUp 0.65s ease 0.38s both' : 'none' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(320px, 100%), 1fr))', gap: 14, width: '100%', maxWidth: 920, marginBottom: 14, animation: inView ? 'secFadeUp 0.65s ease 0.38s both' : 'none' }}>
         {/* Card 1 */}
         <div style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: 22, padding: '28px 26px 22px' }}>
           <div style={{ width: 38, height: 38, background: 'rgba(43,43,170,0.14)', border: '1px solid rgba(43,43,170,0.25)', borderRadius: 11, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 16 }}>

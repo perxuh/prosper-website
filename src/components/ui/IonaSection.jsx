@@ -212,7 +212,7 @@ export default function IonaSection() {
     <section
       style={{
         background: BG,
-        padding: '110px 24px 80px',
+        padding: 'clamp(56px, 10vw, 110px) 20px clamp(48px, 8vw, 80px)',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -246,7 +246,7 @@ export default function IonaSection() {
 
       {/* Headline */}
       <h2
-        className="font-heading"
+        className="font-heading iona-headline"
         style={{
           fontSize: 'clamp(46px, 7.5vw, 86px)',
           fontWeight: 900,
@@ -279,6 +279,7 @@ export default function IonaSection() {
 
       {/* Input bar */}
       <div
+        className="iona-input-bar"
         style={{
           width: '100%',
           maxWidth: 600,
@@ -342,7 +343,7 @@ export default function IonaSection() {
       </div>
 
       {/* Fixed-height response zone — section never grows or shrinks */}
-      <div style={{ width: '100%', maxWidth: 600, height: 400, position: 'relative', zIndex: 3 }}>
+      <div className="iona-response-zone" style={{ width: '100%', maxWidth: 600, height: 400, position: 'relative', zIndex: 3 }}>
 
         {/* Thinking indicator */}
         {showThinking && (
@@ -406,6 +407,14 @@ export default function IonaSection() {
         @keyframes ionaFadeOut {
           from { opacity: 1; transform: translateY(0);    }
           to   { opacity: 0; transform: translateY(-8px); }
+        }
+        @media (max-width: 640px) {
+          .iona-headline { letter-spacing: -1.5px !important; }
+          .iona-input-bar { padding: 11px 11px 11px 18px !important; }
+          .iona-response-zone { height: 360px !important; }
+        }
+        @media (max-width: 380px) {
+          .iona-response-zone { height: 320px !important; }
         }
       `}</style>
     </section>
