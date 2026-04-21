@@ -207,9 +207,28 @@ export default function AboutUs() {
   return (
     <div ref={containerRef} className="pt-20 pb-20 md:pt-32 md:pb-32">
       <Helmet>
-        <title>About Us | Meet the Prosper Fiduciary Team</title>
-        <meta name="description" content="Learn why Prosper was built and meet the fiduciary advisors behind the platform. 25+ years of wealth management experience helping investors at every stage build long-term financial clarity." />
+        <title>About Us | Prosper</title>
+        <meta name="description" content="Meet the fiduciary advisors behind Prosper. 25+ years of wealth management experience and $220M+ in managed assets — real expertise behind every feature." />
         <link rel="canonical" href="https://www.buildingwealthsoftware.com/about" />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="About Us | Prosper" />
+        <meta property="og:description" content="Meet the fiduciary advisors behind Prosper. 25+ years of wealth management experience and $220M+ in managed assets — real expertise behind every feature." />
+        <meta property="og:image" content="https://www.buildingwealthsoftware.com/prosper-logo.png" />
+        <meta property="og:url" content="https://www.buildingwealthsoftware.com/about" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="About Us | Prosper" />
+        <meta name="twitter:description" content="Meet the fiduciary advisors behind Prosper. 25+ years of wealth management experience and $220M+ in managed assets — real expertise behind every feature." />
+        <meta name="twitter:image" content="https://www.buildingwealthsoftware.com/prosper-logo.png" />
+        <script type="application/ld+json">{`
+          {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.buildingwealthsoftware.com/"},
+              {"@type": "ListItem", "position": 2, "name": "About Us", "item": "https://www.buildingwealthsoftware.com/about"}
+            ]
+          }
+        `}</script>
       </Helmet>
       {/* Advisors Section (Moved to top) */}
       <div className="max-w-7xl mx-auto px-6 md:px-12 mb-20 md:mb-40 relative z-10">

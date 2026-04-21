@@ -7,18 +7,18 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: '#14151B',
-        surface: '#1E1F29',
-        accent: '#9F83F1',
-        cyan: '#46C7D9',
-        pink: '#DF74B8',
-        background: '#DFE2F2',
-        text: '#FFFFFF',
+        primary: '#0a0d14',
+        surface: '#13161f',
+        accent: '#2B2BAA',
+        cyan: '#8888ee',
+        pink: '#4040cc',
+        background: '#0a0d14',
+        text: '#eef0f8',
       },
       fontFamily: {
-        heading: ['Inter', 'sans-serif'],
-        drama: ['Newsreader', 'serif'],
-        data: ['JetBrains Mono', 'monospace'],
+        heading: ['Geist', 'sans-serif'],
+        drama: ['Geist', 'sans-serif'],
+        data: ['Geist Mono', 'monospace'],
       }
     },
   },

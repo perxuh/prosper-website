@@ -97,9 +97,28 @@ export default function Features() {
   return (
     <div ref={containerRef} className="pt-20 pb-16 md:pt-32 md:pb-24 px-6 md:px-12 w-full max-w-7xl mx-auto overflow-hidden">
       <Helmet>
-        <title>Platform Capabilities | Prosper</title>
-        <meta name="description" content="Explore Prosper's AI Education Engine, Certified Advisor Network, and Unified Wealth Dashboard. Tools built to help you learn investing, get fiduciary guidance, and track your portfolio." />
+        <title>Features | Prosper</title>
+        <meta name="description" content="Explore Prosper's AI Education Engine, Certified Advisor Network, and Unified Wealth Dashboard — tools built to help you learn investing and track your portfolio." />
         <link rel="canonical" href="https://www.buildingwealthsoftware.com/features" />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Features | Prosper" />
+        <meta property="og:description" content="Explore Prosper's AI Education Engine, Certified Advisor Network, and Unified Wealth Dashboard — tools built to help you learn investing and track your portfolio." />
+        <meta property="og:image" content="https://www.buildingwealthsoftware.com/prosper-logo.png" />
+        <meta property="og:url" content="https://www.buildingwealthsoftware.com/features" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Features | Prosper" />
+        <meta name="twitter:description" content="Explore Prosper's AI Education Engine, Certified Advisor Network, and Unified Wealth Dashboard — tools built to help you learn investing and track your portfolio." />
+        <meta name="twitter:image" content="https://www.buildingwealthsoftware.com/prosper-logo.png" />
+        <script type="application/ld+json">{`
+          {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.buildingwealthsoftware.com/"},
+              {"@type": "ListItem", "position": 2, "name": "Features", "item": "https://www.buildingwealthsoftware.com/features"}
+            ]
+          }
+        `}</script>
       </Helmet>
       
       {/* Hero Section */}

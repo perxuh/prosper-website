@@ -49,18 +49,18 @@ export function LiquidButton({
     return () => window.removeEventListener('resize', checkMobile)
   }, [])
   const shadowConfig = {
-    cyan: "shadow-[0_0_15px_rgba(70,199,217,0.3),inset_3px_3px_2px_-2px_rgba(255,255,255,0.4),inset_0_0_15px_10px_rgba(70,199,217,0.1)] group-hover:shadow-[0_0_30px_rgba(70,199,217,0.6),inset_3px_3px_2px_-2px_rgba(255,255,255,0.6),inset_0_0_20px_10px_rgba(70,199,217,0.2)] bg-[#46C7D9]/10 group-hover:bg-[#46C7D9]/30",
-    purple: "shadow-[0_0_15px_rgba(159,131,241,0.3),inset_3px_3px_2px_-2px_rgba(255,255,255,0.4),inset_0_0_15px_10px_rgba(159,131,241,0.1)] group-hover:shadow-[0_0_30px_rgba(159,131,241,0.6),inset_3px_3px_2px_-2px_rgba(255,255,255,0.6),inset_0_0_20px_10px_rgba(159,131,241,0.2)] bg-[#9F83F1]/10 group-hover:bg-[#9F83F1]/30",
-    primary: "shadow-[0_0_15px_rgba(159,131,241,0.5),inset_3px_3px_2px_-2px_rgba(255,255,255,0.4),inset_0_0_15px_10px_rgba(159,131,241,0.3)] group-hover:shadow-[0_0_30px_rgba(159,131,241,0.8),inset_3px_3px_2px_-2px_rgba(255,255,255,0.8),inset_0_0_20px_10px_rgba(159,131,241,0.5)] bg-gradient-to-r from-[#9F83F1]/50 to-[#DF74B8]/50 group-hover:from-[#9F83F1]/70 group-hover:to-[#DF74B8]/70",
-    pink: "shadow-[0_0_15px_rgba(223,116,184,0.3),inset_3px_3px_2px_-2px_rgba(255,255,255,0.4),inset_0_0_15px_10px_rgba(223,116,184,0.1)] group-hover:shadow-[0_0_30px_rgba(223,116,184,0.6),inset_3px_3px_2px_-2px_rgba(255,255,255,0.6),inset_0_0_20px_10px_rgba(223,116,184,0.2)] bg-[#DF74B8]/10 group-hover:bg-[#DF74B8]/30",
-    dark: "shadow-[0_0_15px_rgba(255,255,255,0.05),inset_3px_3px_2px_-2px_rgba(255,255,255,0.1),inset_0_0_15px_10px_rgba(255,255,255,0.02)] group-hover:shadow-[0_0_30px_rgba(255,255,255,0.15),inset_3px_3px_2px_-2px_rgba(255,255,255,0.3),inset_0_0_20px_10px_rgba(255,255,255,0.05)] bg-[#1A1C25]/60 group-hover:bg-[#1A1C25]/90",
+    cyan: "shadow-[0_0_15px_rgba(43,43,170,0.3),inset_3px_3px_2px_-2px_rgba(255,255,255,0.4),inset_0_0_15px_10px_rgba(43,43,170,0.1)] group-hover:shadow-[0_0_30px_rgba(43,43,170,0.6),inset_3px_3px_2px_-2px_rgba(255,255,255,0.6),inset_0_0_20px_10px_rgba(43,43,170,0.2)] bg-[#2B2BAA]/10 group-hover:bg-[#2B2BAA]/30",
+    purple: "shadow-[0_0_15px_rgba(43,43,170,0.3),inset_3px_3px_2px_-2px_rgba(255,255,255,0.4),inset_0_0_15px_10px_rgba(43,43,170,0.1)] group-hover:shadow-[0_0_30px_rgba(43,43,170,0.6),inset_3px_3px_2px_-2px_rgba(255,255,255,0.6),inset_0_0_20px_10px_rgba(43,43,170,0.2)] bg-[#2B2BAA]/10 group-hover:bg-[#2B2BAA]/30",
+    primary: "shadow-[0_0_15px_rgba(43,43,170,0.5),inset_3px_3px_2px_-2px_rgba(255,255,255,0.4),inset_0_0_15px_10px_rgba(43,43,170,0.3)] group-hover:shadow-[0_0_30px_rgba(43,43,170,0.8),inset_3px_3px_2px_-2px_rgba(255,255,255,0.8),inset_0_0_20px_10px_rgba(43,43,170,0.5)] bg-[#2B2BAA]/50 group-hover:bg-[#2B2BAA]/70",
+    pink: "shadow-[0_0_15px_rgba(43,43,170,0.3),inset_3px_3px_2px_-2px_rgba(255,255,255,0.4),inset_0_0_15px_10px_rgba(43,43,170,0.1)] group-hover:shadow-[0_0_30px_rgba(43,43,170,0.6),inset_3px_3px_2px_-2px_rgba(255,255,255,0.6),inset_0_0_20px_10px_rgba(43,43,170,0.2)] bg-[#2B2BAA]/10 group-hover:bg-[#2B2BAA]/30",
+    dark: "shadow-[0_0_15px_rgba(255,255,255,0.05),inset_3px_3px_2px_-2px_rgba(255,255,255,0.1),inset_0_0_15px_10px_rgba(255,255,255,0.02)] group-hover:shadow-[0_0_30px_rgba(255,255,255,0.15),inset_3px_3px_2px_-2px_rgba(255,255,255,0.3),inset_0_0_20px_10px_rgba(255,255,255,0.05)] bg-[#0f1219]/60 group-hover:bg-[#0f1219]/90",
   }
 
   const borderConfig = {
-    cyan: "border border-[#46C7D9]/30 group-hover:border-[#46C7D9]/80",
-    purple: "border border-[#9F83F1]/30 group-hover:border-[#9F83F1]/80",
-    primary: "border border-[#9F83F1]/50 group-hover:border-[#9F83F1]",
-    pink: "border border-[#DF74B8]/30 group-hover:border-[#DF74B8]/80",
+    cyan: "border border-[#2B2BAA]/30 group-hover:border-[#2B2BAA]/80",
+    purple: "border border-[#2B2BAA]/30 group-hover:border-[#2B2BAA]/80",
+    primary: "border border-[#2B2BAA]/50 group-hover:border-[#2B2BAA]",
+    pink: "border border-[#2B2BAA]/30 group-hover:border-[#2B2BAA]/80",
     dark: "border border-white/10 group-hover:border-white/30",
   }
 

@@ -60,14 +60,14 @@ function Navbar({ onOpenWaitlist }) {
         <nav className="flex items-center justify-between w-full max-w-5xl px-6 py-4 rounded-full text-white relative isolate">
           {/* Liquid Glass Background Layers */}
           <div
-            className={`absolute inset-0 -z-20 rounded-[inherit] transition-all duration-500 origin-center border border-white/10 shadow-[0_0_15px_rgba(255,255,255,0.05),inset_3px_3px_2px_-2px_rgba(255,255,255,0.1),inset_0_0_15px_10px_rgba(255,255,255,0.02)] bg-[#1A1C25]/80 ${isScrolled ? 'scale-100 opacity-100' : 'scale-95 opacity-0 pointer-events-none'}`}
+            className={`absolute inset-0 -z-20 rounded-[inherit] transition-all duration-500 origin-center border border-white/10 shadow-[0_0_15px_rgba(255,255,255,0.05),inset_3px_3px_2px_-2px_rgba(255,255,255,0.1),inset_0_0_15px_10px_rgba(255,255,255,0.02)] bg-[#0f1219]/80 ${isScrolled ? 'scale-100 opacity-100' : 'scale-95 opacity-0 pointer-events-none'}`}
           />
           <div
             className={`absolute inset-0 -z-10 overflow-hidden rounded-[inherit] transition-opacity duration-500 ${isScrolled ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
             style={{ 
               backdropFilter: isMobile ? 'blur(16px)' : 'url("#nav-glass")', 
               WebkitBackdropFilter: isMobile ? 'blur(16px)' : 'url("#nav-glass")',
-              backgroundColor: isMobile ? 'rgba(26, 28, 37, 0.4)' : 'transparent',
+              backgroundColor: isMobile ? 'rgba(10, 13, 20, 0.4)' : 'transparent',
               willChange: 'backdrop-filter'
             }}
           />
@@ -111,7 +111,7 @@ function Navbar({ onOpenWaitlist }) {
           menuOpen ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 -translate-y-4 pointer-events-none'
         }`}
       >
-        <div className="mx-4 mt-24 rounded-3xl bg-[#1A1C25]/95 backdrop-blur-2xl border border-white/10 shadow-2xl overflow-hidden">
+        <div className="mx-4 mt-24 rounded-3xl bg-[#0f1219]/95 backdrop-blur-2xl border border-white/10 shadow-2xl overflow-hidden">
           <div className="flex flex-col p-6 gap-1">
             {navLinks.map((link) => (
               <Link
@@ -129,7 +129,7 @@ function Navbar({ onOpenWaitlist }) {
             <div className="pt-4 mt-2 border-t border-white/10">
               <button
                 onClick={() => { setMenuOpen(false); onOpenWaitlist(); }}
-                className="w-full py-3 px-6 rounded-2xl font-heading font-semibold text-white bg-gradient-to-r from-accent to-pink shadow-[0_0_20px_rgba(159,131,241,0.3)] hover:shadow-[0_0_30px_rgba(159,131,241,0.5)] transition-all"
+                className="w-full py-3 px-6 rounded-2xl font-heading font-semibold text-white bg-accent shadow-[0_0_20px_rgba(43,43,170,0.3)] hover:shadow-[0_0_30px_rgba(43,43,170,0.5)] transition-all"
               >
                 Get Early Access
               </button>
@@ -155,27 +155,27 @@ function Footer() {
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between gap-12">
         <div className="space-y-6 max-w-sm text-center md:text-left mx-auto md:mx-0">
           <Link to="/" className="font-heading font-bold text-2xl text-white tracking-tight flex items-center justify-center md:justify-start gap-3">
-             <div className="w-8 h-8 bg-gradient-to-tr from-accent to-cyan rounded-full"></div>
+             <div className="w-8 h-8 bg-accent rounded-full"></div>
              Prosper
           </Link>
           <p className="font-heading text-white/40 text-sm leading-relaxed">
             Bridge the gap between intelligent financial education and real advisor guidance. Learn faster. Track everything clearly. Build wealth with structure and confidence. 📊💬📈
           </p>
         </div>
-        <div className="flex gap-16 justify-center md:justify-end">
+        <div className="flex gap-8 md:gap-16 justify-center md:justify-end">
           <div className="space-y-4">
             <h4 className="font-data text-accent text-xs tracking-widest uppercase font-bold">Platform</h4>
             <div className="flex flex-col gap-3 font-heading text-sm text-white/60">
-              <Link to="/features" className="hover:text-cyan transition-colors">Features</Link>
-              <Link to="/about" className="hover:text-cyan transition-colors">Advisors</Link>
-              <Link to="/faq" className="hover:text-cyan transition-colors">FAQ</Link>
+              <Link to="/features" className="hover:text-white transition-colors">Features</Link>
+              <Link to="/about" className="hover:text-white transition-colors">Advisors</Link>
+              <Link to="/faq" className="hover:text-white transition-colors">FAQ</Link>
             </div>
           </div>
           <div className="space-y-4">
             <h4 className="font-data text-accent text-xs tracking-widest uppercase font-bold">Legal</h4>
             <div className="flex flex-col gap-3 font-heading text-sm text-white/60">
-              <a href="#" className="hover:text-pink transition-colors">Privacy</a>
-              <a href="#" className="hover:text-pink transition-colors">Terms</a>
+              <Link to="/privacy" className="hover:text-white transition-colors">Privacy</Link>
+              <Link to="/terms" className="hover:text-white transition-colors">Terms</Link>
             </div>
           </div>
         </div>
@@ -228,7 +228,7 @@ export default function Layout() {
   const handleOpenWaitlist = () => setWaitlistOpen(true);
 
   return (
-    <div className="min-h-screen relative flex flex-col selection:bg-pink selection:text-white bg-[#14151B]">
+    <div className="min-h-screen relative flex flex-col selection:bg-accent selection:text-white bg-[#0a0d14]">
       <Noise />
       <Navbar onOpenWaitlist={handleOpenWaitlist} />
       

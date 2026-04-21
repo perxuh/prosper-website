@@ -49,9 +49,28 @@ export default function WhyUs() {
   return (
     <div ref={containerRef} className="pt-20 pb-20 md:pt-32 md:pb-40 px-6 md:px-12 max-w-5xl mx-auto relative min-h-screen overflow-hidden">
       <Helmet>
-        <title>Why Prosper | Fiduciary Financial Education Platform</title>
-        <meta name="description" content="Discover why Prosper is different. Built on 25+ years of wealth management experience, $220M+ in managed assets, and 0% platform AUM fees. Real advisors. Real education. Real results." />
+        <title>Why Prosper | Prosper</title>
+        <meta name="description" content="Built on 25+ years of wealth management experience, $220M+ in assets, and 0% AUM fees. Discover why Prosper is the financial platform built differently." />
         <link rel="canonical" href="https://www.buildingwealthsoftware.com/why-us" />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Why Prosper | Prosper" />
+        <meta property="og:description" content="Built on 25+ years of wealth management experience, $220M+ in assets, and 0% AUM fees. Discover why Prosper is the financial platform built differently." />
+        <meta property="og:image" content="https://www.buildingwealthsoftware.com/prosper-logo.png" />
+        <meta property="og:url" content="https://www.buildingwealthsoftware.com/why-us" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Why Prosper | Prosper" />
+        <meta name="twitter:description" content="Built on 25+ years of wealth management experience, $220M+ in assets, and 0% AUM fees. Discover why Prosper is the financial platform built differently." />
+        <meta name="twitter:image" content="https://www.buildingwealthsoftware.com/prosper-logo.png" />
+        <script type="application/ld+json">{`
+          {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.buildingwealthsoftware.com/"},
+              {"@type": "ListItem", "position": 2, "name": "Why Prosper", "item": "https://www.buildingwealthsoftware.com/why-us"}
+            ]
+          }
+        `}</script>
       </Helmet>
       
       {/* Background Ambient Effects */}
