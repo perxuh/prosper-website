@@ -5,10 +5,10 @@ export default function Privacy() {
   return (
     <div className="pt-28 pb-24 px-6 max-w-3xl mx-auto">
       <Helmet>
-        <title>Privacy Policy | Prosper</title>
+        <title>Privacy Policy | PRO$PER</title>
         <meta name="description" content="Prosper's privacy policy — how we collect, use, and protect your personal and financial data." />
         <link rel="canonical" href="https://www.buildingwealthsoftware.com/privacy" />
-        <meta property="og:title" content="Privacy Policy | Prosper" />
+        <meta property="og:title" content="Privacy Policy | PRO$PER" />
         <meta property="og:url" content="https://www.buildingwealthsoftware.com/privacy" />
       </Helmet>
 

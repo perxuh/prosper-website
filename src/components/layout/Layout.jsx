@@ -72,7 +72,7 @@ function Navbar({ onOpenWaitlist }) {
             }}
           />
 
-          <Link to="/" className="relative z-10 font-heading font-bold text-xl tracking-tight">Prosper</Link>
+          <Link to="/" className="relative z-10 font-heading font-bold text-xl tracking-tight">PRO$PER</Link>
 
           {/* Desktop nav links */}
           <div className="relative z-10 hidden md:flex gap-8 font-heading text-sm font-medium">
@@ -156,7 +156,7 @@ function Footer() {
         <div className="space-y-6 max-w-sm text-center md:text-left mx-auto md:mx-0">
           <Link to="/" className="font-heading font-bold text-2xl text-white tracking-tight flex items-center justify-center md:justify-start gap-3">
              <div className="w-8 h-8 bg-accent rounded-full"></div>
-             Prosper
+             PRO$PER
           </Link>
           <p className="font-heading text-white/40 text-sm leading-relaxed">
             Bridge the gap between intelligent financial education and real advisor guidance. Learn faster. Track everything clearly. Build wealth with structure and confidence. 📊💬📈
@@ -181,7 +181,7 @@ function Footer() {
         </div>
       </div>
       <div className="max-w-7xl mx-auto mt-24 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
-        <p className="font-heading text-white/30 text-sm">© {new Date().getFullYear()} Prosper Financial.</p>
+        <p className="font-heading text-white/30 text-sm">© {new Date().getFullYear()} PRO$PER Financial.</p>
         <div className="flex items-center gap-3 bg-white/5 px-4 py-2 rounded-full border border-white/5">
           <div className="w-2 h-2 rounded-full bg-[#4ADE80] shadow-[0_0_10px_#4ADE80]"></div>
           <span className="font-data text-white/60 text-xs tracking-wide">System Operational</span>

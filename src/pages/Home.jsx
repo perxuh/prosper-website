@@ -341,12 +341,12 @@ function Hero({ onOpenWaitlist }) {
             Now available on iOS & Android
           </div>
 
-          <h1 style={{ fontFamily: "Geist, sans-serif", fontSize: 'clamp(36px, 5.5vw, 72px)', fontWeight: 800, lineHeight: 1.08, letterSpacing: '-1.8px', marginBottom: 28, color: TEXT }}>
+          <h1 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: 'clamp(36px, 5.5vw, 72px)', fontWeight: 800, lineHeight: 1.08, letterSpacing: '-1px', marginBottom: 28, color: TEXT }}>
             Your Finances.{' '}
             <span style={{ color: ACCENT, display: 'block' }}>Real Guidance.</span>
           </h1>
 
-          <p className="nh-sub" style={{ fontFamily: "Geist, sans-serif", fontSize: 16, lineHeight: 1.75, color: MUTED, maxWidth: 420, marginBottom: 40, fontWeight: 400 }}>
+          <p className="nh-sub" style={{ fontFamily: "'Inter', system-ui, sans-serif", fontSize: 16, lineHeight: 1.75, color: MUTED, maxWidth: 420, marginBottom: 40, fontWeight: 400 }}>
             Message a real advisor, track every account, and build a plan that actually fits your life.
           </p>
 
@@ -1064,7 +1064,7 @@ function SecureUploadSection() {
       {/* ── Headline ── */}
       <div style={{ textAlign: 'center', maxWidth: 620, marginBottom: 64, animation: inView ? 'secFadeUp 0.65s ease 0.2s both' : 'none' }}>
         <p className="font-heading" style={{ fontSize: 11, fontWeight: 800, letterSpacing: '2.5px', textTransform: 'uppercase', color: BLUE, marginBottom: 16 }}>Secure File Uploads</p>
-        <h2 className="font-heading" style={{ fontSize: 'clamp(34px, 5vw, 60px)', fontWeight: 900, color: 'white', letterSpacing: '-2.5px', lineHeight: 1.06, marginBottom: 20 }}>
+        <h2 className="font-heading" style={{ fontSize: 'clamp(34px, 5vw, 60px)', fontWeight: 900, color: 'white', letterSpacing: '-1px', lineHeight: 1.06, marginBottom: 20 }}>
           Your Documents.{' '}
           <em style={{ fontStyle: 'italic', color: BLUE }}>Fort Knox Secure.</em>
         </h2>
@@ -1255,7 +1255,7 @@ function AdvisorChatSection() {
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: 7, padding: '5px 14px', background: 'rgba(43,43,170,0.12)', border: '1px solid rgba(43,43,170,0.28)', borderRadius: 100, fontSize: 11, fontWeight: 800, color: '#2B2BAA', letterSpacing: '1.5px', textTransform: 'uppercase', marginBottom: 22 }}>
             1:1 Advisor Chat
           </div>
-          <h2 className="font-heading" style={{ fontSize: 'clamp(30px, 4vw, 52px)', fontWeight: 900, color: 'white', letterSpacing: '-2px', lineHeight: 1.1, marginBottom: 18 }}>
+          <h2 className="font-heading" style={{ fontSize: 'clamp(30px, 4vw, 52px)', fontWeight: 900, color: 'white', letterSpacing: '-1px', lineHeight: 1.1, marginBottom: 18 }}>
             Your Advisor,{' '}
             <em style={{ fontStyle: 'italic', color: '#2B2BAA' }}>Always a Message Away.</em>
           </h2>
@@ -1473,16 +1473,16 @@ export default function Home() {
   return (
     <div ref={mainRef} className="relative bg-transparent">
       <Helmet>
-        <title>Prosper | Build Wealth With Structure</title>
+        <title>PRO$PER | Build Wealth With Structure</title>
         <meta name="description" content="Prosper combines AI-guided financial education with real fiduciary advisors. Learn investing, track your portfolio, and build wealth with structure and confidence." />
         <link rel="canonical" href="https://www.buildingwealthsoftware.com/" />
         <meta property="og:type" content="website" />
-        <meta property="og:title" content="Prosper | Build Wealth With Structure" />
+        <meta property="og:title" content="PRO$PER | Build Wealth With Structure" />
         <meta property="og:description" content="Prosper combines AI-guided financial education with real fiduciary advisors. Learn investing, track your portfolio, and build wealth with structure and confidence." />
         <meta property="og:image" content="https://www.buildingwealthsoftware.com/prosper-logo.png" />
         <meta property="og:url" content="https://www.buildingwealthsoftware.com/" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Prosper | Build Wealth With Structure" />
+        <meta name="twitter:title" content="PRO$PER | Build Wealth With Structure" />
         <meta name="twitter:description" content="Prosper combines AI-guided financial education with real fiduciary advisors. Learn investing, track your portfolio, and build wealth with structure and confidence." />
         <meta name="twitter:image" content="https://www.buildingwealthsoftware.com/prosper-logo.png" />
       </Helmet>

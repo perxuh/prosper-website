@@ -733,7 +733,7 @@ export default function AboutUsSection() {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -8 }}
           transition={{ duration: 0.3 }}
-          style={{ fontSize: 'clamp(32px, 5vw, 56px)', fontWeight: 900, textAlign: 'center', letterSpacing: -1.5, lineHeight: 1.1, maxWidth: 640, marginBottom: 36 }}
+          style={{ fontSize: 'clamp(32px, 5vw, 56px)', fontWeight: 900, textAlign: 'center', letterSpacing: '-0.5px', lineHeight: 1.1, maxWidth: 640, marginBottom: 36 }}
           className="font-heading"
         >
           <span style={{ color: 'white' }}>{active.headline[0]}</span>

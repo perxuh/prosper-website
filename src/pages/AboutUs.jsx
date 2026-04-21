@@ -207,16 +207,16 @@ export default function AboutUs() {
   return (
     <div ref={containerRef} className="pt-20 pb-20 md:pt-32 md:pb-32">
       <Helmet>
-        <title>About Us | Prosper</title>
+        <title>About Us | PRO$PER</title>
         <meta name="description" content="Meet the fiduciary advisors behind Prosper. 25+ years of wealth management experience and $220M+ in managed assets — real expertise behind every feature." />
         <link rel="canonical" href="https://www.buildingwealthsoftware.com/about" />
         <meta property="og:type" content="website" />
-        <meta property="og:title" content="About Us | Prosper" />
+        <meta property="og:title" content="About Us | PRO$PER" />
         <meta property="og:description" content="Meet the fiduciary advisors behind Prosper. 25+ years of wealth management experience and $220M+ in managed assets — real expertise behind every feature." />
         <meta property="og:image" content="https://www.buildingwealthsoftware.com/prosper-logo.png" />
         <meta property="og:url" content="https://www.buildingwealthsoftware.com/about" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="About Us | Prosper" />
+        <meta name="twitter:title" content="About Us | PRO$PER" />
         <meta name="twitter:description" content="Meet the fiduciary advisors behind Prosper. 25+ years of wealth management experience and $220M+ in managed assets — real expertise behind every feature." />
         <meta name="twitter:image" content="https://www.buildingwealthsoftware.com/prosper-logo.png" />
         <script type="application/ld+json">{`

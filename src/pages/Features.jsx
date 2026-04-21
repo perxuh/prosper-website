@@ -97,16 +97,16 @@ export default function Features() {
   return (
     <div ref={containerRef} className="pt-20 pb-16 md:pt-32 md:pb-24 px-6 md:px-12 w-full max-w-7xl mx-auto overflow-hidden">
       <Helmet>
-        <title>Features | Prosper</title>
+        <title>Features | PRO$PER</title>
         <meta name="description" content="Explore Prosper's AI Education Engine, Certified Advisor Network, and Unified Wealth Dashboard — tools built to help you learn investing and track your portfolio." />
         <link rel="canonical" href="https://www.buildingwealthsoftware.com/features" />
         <meta property="og:type" content="website" />
-        <meta property="og:title" content="Features | Prosper" />
+        <meta property="og:title" content="Features | PRO$PER" />
         <meta property="og:description" content="Explore Prosper's AI Education Engine, Certified Advisor Network, and Unified Wealth Dashboard — tools built to help you learn investing and track your portfolio." />
         <meta property="og:image" content="https://www.buildingwealthsoftware.com/prosper-logo.png" />
         <meta property="og:url" content="https://www.buildingwealthsoftware.com/features" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Features | Prosper" />
+        <meta name="twitter:title" content="Features | PRO$PER" />
         <meta name="twitter:description" content="Explore Prosper's AI Education Engine, Certified Advisor Network, and Unified Wealth Dashboard — tools built to help you learn investing and track your portfolio." />
         <meta name="twitter:image" content="https://www.buildingwealthsoftware.com/prosper-logo.png" />
         <script type="application/ld+json">{`

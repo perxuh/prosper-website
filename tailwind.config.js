@@ -16,9 +16,10 @@ export default {
         text: '#eef0f8',
       },
       fontFamily: {
-        heading: ['Geist', 'sans-serif'],
-        drama: ['Geist', 'sans-serif'],
-        data: ['Geist Mono', 'monospace'],
+        heading: ['Playfair Display', 'Georgia', 'serif'],
+        body: ['Inter', 'system-ui', 'sans-serif'],
+        drama: ['Playfair Display', 'Georgia', 'serif'],
+        data: ['Inter', 'system-ui', 'sans-serif'],
       }
     },
   },

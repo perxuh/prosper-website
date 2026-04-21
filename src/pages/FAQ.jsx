@@ -6,16 +6,16 @@ export default function FAQ() {
   return (
     <div className="pt-20 pb-16 md:pt-32 md:pb-24">
       <Helmet>
-        <title>FAQ | Prosper</title>
+        <title>FAQ | PRO$PER</title>
         <meta name="description" content="Frequently asked questions about Prosper — data security, AI vs. human advisors, pricing, and account syncing. Get clear answers before you join." />
         <link rel="canonical" href="https://www.buildingwealthsoftware.com/faq" />
         <meta property="og:type" content="website" />
-        <meta property="og:title" content="FAQ | Prosper" />
+        <meta property="og:title" content="FAQ | PRO$PER" />
         <meta property="og:description" content="Frequently asked questions about Prosper — data security, AI vs. human advisors, pricing, and account syncing. Get clear answers before you join." />
         <meta property="og:image" content="https://www.buildingwealthsoftware.com/prosper-logo.png" />
         <meta property="og:url" content="https://www.buildingwealthsoftware.com/faq" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="FAQ | Prosper" />
+        <meta name="twitter:title" content="FAQ | PRO$PER" />
         <meta name="twitter:description" content="Frequently asked questions about Prosper — data security, AI vs. human advisors, pricing, and account syncing. Get clear answers before you join." />
         <meta name="twitter:image" content="https://www.buildingwealthsoftware.com/prosper-logo.png" />
         <script type="application/ld+json">{`

@@ -4,7 +4,8 @@
 
 @layer base {
   body {
-    @apply bg-background text-text font-heading antialiased;
+    @apply bg-background text-text antialiased;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
   }
   html {
     scroll-behavior: smooth;

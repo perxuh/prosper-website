@@ -5,10 +5,10 @@ export default function Terms() {
   return (
     <div className="pt-28 pb-24 px-6 max-w-3xl mx-auto">
       <Helmet>
-        <title>Terms of Service | Prosper</title>
+        <title>Terms of Service | PRO$PER</title>
         <meta name="description" content="Prosper's terms of service — the rules and guidelines governing your use of the Prosper platform." />
         <link rel="canonical" href="https://www.buildingwealthsoftware.com/terms" />
-        <meta property="og:title" content="Terms of Service | Prosper" />
+        <meta property="og:title" content="Terms of Service | PRO$PER" />
         <meta property="og:url" content="https://www.buildingwealthsoftware.com/terms" />
       </Helmet>
 

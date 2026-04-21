@@ -252,7 +252,7 @@ export default function IonaSection() {
           fontWeight: 900,
           textAlign: 'center',
           color: 'white',
-          letterSpacing: '-3.5px',
+          letterSpacing: '-1px',
           lineHeight: 1.02,
           marginBottom: 18,
           position: 'relative', zIndex: 3,
